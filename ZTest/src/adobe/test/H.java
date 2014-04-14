@@ -23,7 +23,7 @@ class H {
 					}
 					k=j;
 				}
-				if(k==1){
+				if(k<2){
 					S+=i;c++;
 					//System.out.println(i);
 				}
