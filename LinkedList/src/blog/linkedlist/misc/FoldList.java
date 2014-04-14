@@ -3,15 +3,20 @@ package blog.linkedlist.misc;
  * Folding LInked List 
  * @author PRATEEK
  */
-
 public class FoldList {
 
-	static Node foldList(Node head)
+	public static Node foldList(Node head)
 	{
 		return fold(head,head);
 	}
 	
-	public static Node fold(Node head, Node curr) {
+	/**
+	 * Linked List Folding Sub-routine
+	 * @param head: head pointer
+	 * @param curr: current pointer
+	 * @return: head of the folded list
+	 */
+	private static Node fold(Node head, Node curr) {
 		if (curr == null) {
 			return head;
 		}

@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 
 
 /**
@@ -14,4 +16,8 @@ When a digit of a serial digit prime number to be found is given, find all seria
  */
 public class SerialDigitPrimeNumber {
 
+	
+	public static void main(String[] args) {
+		HashSet h;
+	}
 }

@@ -7,8 +7,16 @@ package blog.nextpallindrome;
 public class NextPallindrome {
 
 	public static void main(String[] argc){
-		int num= 8646;
-          System.out.println(nextPanlindrome(num));
+		int num= 0;
+		int output = 0;
+
+		num = 8648;
+		output = nextPanlindrome(num);
+          System.out.println("input :"+num + "      "  + "output :"+output);
+		
+		num = 8468;
+		output = nextPanlindrome(num);
+          System.out.println("input :"+num + "      "  + "output :"+output);
 	}
 
 	/**
@@ -33,16 +41,17 @@ public class NextPallindrome {
 			int left = Integer.parseInt(temp.charAt(start)+"") * base;
 
 			// add differnce to the number
-			num = num + left - right  ;		 //------(1)
+			num += left - right  ;		 //------(1)
 
 			base *=10;
 
-			if(right > left)
+					
+			if(right > left) 
 			{
 				num += base;		// for incresing the value of number which got decreased at (1)
 
-				// previous step indroduces asymmetry if its a even number.
-				if(start == end - 1)  // For even numbers eg. case 8468 (adjacent digits)
+				    //number of digits are even,
+				if(start == end - 1) 
 					num += base/10;
 			}
 			temp = num + "";

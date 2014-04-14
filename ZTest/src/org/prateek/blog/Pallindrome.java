@@ -2,7 +2,7 @@ package org.prateek.blog;
 
 public class Pallindrome {
 
-	public void largestPallindrome(int m,int n){
+	public void maxPallindromeProduct(int m,int n){
 		int limit=0;
 		
 		for(int i=m;i>limit;i--){

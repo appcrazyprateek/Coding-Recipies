@@ -42,7 +42,6 @@ public class LFUCache implements Cache{
 		map = new HashMap<String, Item>(size);
 	}
 
-
 	public LFUCache(int size) {
 		this.size=size;
 		pq = new PriorityQueue<Item>(size);

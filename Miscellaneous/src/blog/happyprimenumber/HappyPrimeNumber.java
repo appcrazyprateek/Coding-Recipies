@@ -73,7 +73,7 @@ public class HappyPrimeNumber {
 	}
 
 	private static boolean p(int num) {
-		for (int p = 3; p <= num / 2; p += 2)
+		for (int p = 3; p <=num / 2; p += 2)
 			if (num % p == 0)
 				return false;
 		return true;
