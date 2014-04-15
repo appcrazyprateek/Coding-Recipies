@@ -80,7 +80,16 @@ public class HappyPrimeNumber {
 	}
 
 	public static void main(String[] args) {
-		happyPrimes(5);
+		//happyPrimes(5);
+		
+		//long n=new Long(a[0])
+		
+		long n=7,p=n>1?1:0,s,d=1;
+		  while(++d<n)if(n%d<1)p=0;
+		  for(Set c=new HashSet();c.add(n);n=s)
+			  for(s=0;n>0;s+=d*d,n/=10)
+				  d=n%10;
+		  System.out.printf("%s %sprime",n>1?"sad":"happy",p>0?"":"non-");
 	}
 
 }
