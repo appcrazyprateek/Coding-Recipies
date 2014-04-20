@@ -2,14 +2,11 @@ package blog.happyprimenumber;
 
 import java.util.HashSet;
 import java.util.Set;
-
 /**
  * Print happy prime numbers
  * @author PRATEEK
  */
 public class HappyPrimeNumber {
-
-	private final int INIFINITY = 400160;
 
 	/**
 	 * Prints n happy prime numbers
@@ -20,7 +17,7 @@ public class HappyPrimeNumber {
 	public static int happyPrimes(int n) {
 		int c = 0, i = 7, s = 0;
 		for (;c < n; i += 2) {
-			 if (p(i) && h1(i, new HashSet<Integer>())) {
+			 if (isPrime(i) && isHappy1(i, new HashSet<Integer>())) {
 			//if (p(i) && h2(i)) {
 				s += i;
 				c++;
@@ -41,7 +38,7 @@ public class HappyPrimeNumber {
 	 * 
 	 * @return: true if number is happy
 	 */
-	private static boolean h1(int num, Set<Integer> set) {
+	private static boolean isHappy1(int num, Set<Integer> set) {
 		if (!set.add(num))
 			return false;
 		if (num == 1)
@@ -53,43 +50,33 @@ public class HappyPrimeNumber {
 			num /= 10;
 			sum += digit * digit;
 		}
-		return h1(sum, set);
+		return isHappy1(sum, set);
 	}
 
-	public static boolean h2(int n) {
-		int s = 0, d;
-		Set<Integer> h = new HashSet<Integer>();
-
-		while (n != 1 && h.add(n)) {
-			s = 0;
-			while (n > 0) {
-				d = n % 10;
-				s += d * d;
-				n /= 10;
-			}
-			n = s;
-		}
-		return s == 1;
-	}
-
-	private static boolean p(int num) {
-		for (int p = 3; p <=num / 2; p += 2)
+	private static boolean isPrime(int num) {
+		for (int p = 3; p <=Math.sqrt(num)+1; p += 2)
 			if (num % p == 0)
 				return false;
 		return true;
 	}
 
 	public static void main(String[] args) {
-		//happyPrimes(5);
-		
-		//long n=new Long(a[0])
-		
-		long n=7,p=n>1?1:0,s,d=1;
-		  while(++d<n)if(n%d<1)p=0;
-		  for(Set c=new HashSet();c.add(n);n=s)
-			  for(s=0;n>0;s+=d*d,n/=10)
-				  d=n%10;
-		  System.out.printf("%s %sprime",n>1?"sad":"happy",p>0?"":"non-");
+		happyPrimes(5);
 	}
 
+	public static boolean isHappy2(int n) {
+		int sum = 0, digit;
+		Set<Integer> h = new HashSet<Integer>();
+
+		while (n != 1 && h.add(n)) {
+			sum = 0;
+			while (n > 0) {
+				digit = n % 10;
+				sum += digit * digit;
+				n /= 10;
+			}
+			n = sum;
+		}
+		return sum == 1;
+	}
 }
