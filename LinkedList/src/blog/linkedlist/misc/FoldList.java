@@ -1,15 +1,16 @@
 package blog.linkedlist.misc;
+
 /**
- * Folding LInked List 
+ * Folding LInked List
+ * 
  * @author PRATEEK
  */
 public class FoldList {
 
-	public static Node foldList(Node head)
-	{
-		return fold(head,head);
+	public static Node foldList(Node head) {
+		return fold(head, head);
 	}
-	
+
 	/**
 	 * Linked List Folding Sub-routine
 	 * @param head: head pointer
@@ -17,29 +18,25 @@ public class FoldList {
 	 * @return: head of the folded list
 	 */
 	private static Node fold(Node head, Node curr) {
-		if (curr == null) {
+		if (curr == null)
 			return head;
-		}
+
 		Node result = fold(head, curr.next);
 
-		if (!(result == head && curr.next != null)) // condition to stop
-													// execution if result is
-													// head and curr is not the
-													// last node
+		// condition to stop execution if result is head and curr is not the
+		// last node
+		if (result != head || curr.next == null) 
 		{
-			if (result != curr) 
+			// handling odd and even number of nodes
+			if (result != curr && result.next!=curr) 
 			{
 				curr.next = result.next;
 				result.next = curr;
-			}
-			else
-				curr.next = null;
-
-			if (curr.next != null) 
 				return curr.next;
-			
-		} 
-			return head;
+			}
+			curr.next = null;
+		}
+		return head;
 	}
 
 	public static void displayList(Node head) {
@@ -60,7 +57,6 @@ public class FoldList {
 		root.next.next.next = new Node(4);
 		root.next.next.next.next = new Node(5);
 		root.next.next.next.next.next = new Node(6);
-		root.next.next.next.next.next.next = new Node(7);
 		displayList(root);
 		displayList(foldList(root));
 
