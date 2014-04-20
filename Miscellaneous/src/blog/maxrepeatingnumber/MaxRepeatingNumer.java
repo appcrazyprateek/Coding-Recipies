@@ -1,42 +1,35 @@
 package blog.maxrepeatingnumber;
 
+/**
+ * Find the element with maximum frequency
+ * @author PRATEEK
+ */
 public class MaxRepeatingNumer {
-public static void main(String[] args) {
-	
-	int arr[] = {2, 3, 3, 5, 3, 4, 1, 7};
-    int n = 8;
-    int k = 8;
-    maxRepeating(arr,8,8);
-}
+	public static void main(String[] args) {
 
+		int arr[] = { 3, 1, 3, 2, 1, 2, 2 };
+		int x = 5;
+		System.out.println(maxRepeatingNumer(arr, x));
+	}
 
-static int maxRepeating(int arr[], int n, int k)
-{
-    // Iterate though input array, for every element
-    // arr[i], increment arr[arr[i]%k] by k
-    for (int i = 0; i< n; i++)
-        arr[arr[i]%k] += k;
- 
+	private static int maxRepeatingNumer(int arr[],int k) {
+		
+		int i = 0, max = arr[0], result = 0;
+		for (; i < arr.length; i++)
+			arr[arr[i] % k] += k;
 
+		i = 1;
+		for (; i < arr.length; i++) {
+			if (arr[i] > max) {
+				max = arr[i];
+				result = i;
+			}
+		}
 
-    
-    
-    // Find index of the maximum repeating element
-    int max = arr[0], result = 0;
-    for (int i = 1; i < n; i++)
-    {
-        if (arr[i] > max)
-        {
-            max = arr[i];
-            result = i;
-        }
-    }
- 
-    /* Uncomment this code to get the original array back
-       for (int i = 0; i< n; i++)
-          arr[i] = arr[i]%k; */
- 
-    // Return index of the maximum element
-    return result;
-}
+		i = 0;
+		for (; i < arr.length; i++)
+			arr[i] = arr[i] % k;
+
+		return result;
+	}
 }
