@@ -43,11 +43,11 @@ static int mid;
 			mid=(low+high)/2;
 			if(numberToFind<arr[mid])
 			{
-				binarySearchRecursion(numberToFind,low,high);
+				binarySearchRecursion(numberToFind,low,mid -1 );
 			}
 			else
 			{
-
+				binarySearchRecursion(numberToFind,mid+1,high);
 			}
 		}
 		else

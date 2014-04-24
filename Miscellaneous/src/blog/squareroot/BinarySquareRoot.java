@@ -29,7 +29,7 @@ public class BinarySquareRoot {
 
 		while (high > low) {
 			mid = (high + low) / 2;
-			System.out.println("main");
+
 			if ((mid * mid >= num) && ((mid - 1) * (mid - 1) < num))
 				return mid-1;
 
