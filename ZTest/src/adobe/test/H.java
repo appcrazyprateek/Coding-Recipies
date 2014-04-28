@@ -1,7 +1,9 @@
 package adobe.test;
+import java.math.BigInteger;
 import java.util.*;
 class H {
 	public static void main(String[]a) {
+		
 		//int n = Integer.parseInt(a[0]);
 		int n=5; 
 		int c=0,S=0,i=7,d,j,k;
