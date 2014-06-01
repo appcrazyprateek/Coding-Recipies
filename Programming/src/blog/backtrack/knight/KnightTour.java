@@ -2,6 +2,7 @@ package blog.backtrack.knight;
 
 public class KnightTour {
 
+	private static int count=0 ;
 	private static final int BLANK = -1;
 	private static int rowLen;
 	private static int colLen;
@@ -23,38 +24,38 @@ public class KnightTour {
 		rowLen = board.length;
 		colLen = board[0].length;
 		knightTour(board, 0, 0, 0);
-		
 	}
 
 	
-	public static boolean knightTour(int[][] board, int row , int col , int curr)
+	public static void knightTour(int[][] board, int row , int col , int curr)
 	{
-		if(curr == (rowLen * colLen - 1))
-		{
-			printSol(board);
-			return true;
-		}
-		else 
-		{
+		count++;
 			if(isValid(board,row,col))
 			{
 				board[row][col]=curr;
 				
-				knightTour(board,row - 2 , col - 1, curr++ );
-				knightTour(board,row - 2 , col + 1, curr++ );
-				knightTour(board,row + 2 , col - 1, curr++ );
-				knightTour(board,row + 2 , col + 1, curr++ );
-				
-				knightTour(board,row - 1 , col - 2, curr++ );
-				knightTour(board,row - 1 , col + 2, curr++ );
-				knightTour(board,row + 1 , col - 2, curr++ );
-				knightTour(board,row + 1 , col + 2, curr++ );
-				
-				curr --;
-				board[row][col]=BLANK;
+				if(curr == (rowLen * colLen - 1))
+				{
+					printSol(board);
+					System.exit(0);
+				}
+				else
+				{
+					
+					knightTour(board,row + 2 , col + 1, curr+1 );
+					knightTour(board,row + 1 , col + 2, curr+1 );
+					
+					knightTour(board,row - 1 , col + 2, curr+1 );
+					knightTour(board,row - 2 , col + 1, curr+1 );
+					
+					knightTour(board,row - 2 , col - 1, curr+1 );
+					knightTour(board,row - 1 , col - 2, curr+1 );
+					knightTour(board,row + 1 , col - 2, curr+1 );
+					knightTour(board,row + 2 , col - 1, curr+1 );
+					
+					board[row][col]=BLANK;
+				}
 			}
-		}
-		return false;
 	}
 
 
@@ -68,12 +69,12 @@ public class KnightTour {
 	private static void printSol(int[][] board) {
 		for(int i=0;i<colLen;i++)
 		{
-			for(int j=0;j<rowLen;i++)
+			for(int j=0;j<rowLen;j++)
 			{
 				System.out.print(board[i][j]+ "\t");
 			}
 			System.out.println();
 		}
-		
+		System.out.println("Done" + count);
 	}
 }
