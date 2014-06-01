@@ -1,5 +1,4 @@
 package blog.backtrack.soduku;
-
 /**
  * Solve Soduku using backtracking
  * @author Prateek
@@ -30,7 +29,6 @@ public class SolveSoduku {
 		}
 		else
 			throw new Exception("Invalid Matrix");
-
 	}
 
 	/**
@@ -45,7 +43,7 @@ public class SolveSoduku {
 		else
 		{
 			//Try the vacant cell with every Number
-			for(int num=1; num<=9 ; num++ )
+			for(int num=1; num<=size ; num++ )
 			{
 
 				//check if current number can fit the cell with the given constraints
@@ -54,21 +52,22 @@ public class SolveSoduku {
 					
 				//	System.out.println(row +" : "+col+" : "+num);
 					
-					if(row==8 && col==8)
-						System.out.println("Test");
+					//if(row==8 && col==8)
+						//System.out.println("Test");
 					
 					soduku[row][ col] = num;  //Assuming to be true
 
 					if(row==size-1 && col==size-1)
+					{
+						printSoduku();
 						return true;
+					}
 					
 					if(solve(row, col)) //will be called again and other cells will be processed
 						return true;
 					
-				
-					
-					System.out.println("Num: "+num + " row:"+row +" col:"+col);
-					printSoduku();
+					//System.out.println("Num: "+num + " row:"+row +" col:"+col);
+					//printSoduku();
 					soduku[row][ col] = BLANK; //Reverting
 				}
 			}
@@ -93,7 +92,7 @@ public class SolveSoduku {
 	 * @return true, if the number can fit at the current position
 	 */
 	private boolean isValid( int row , int col, int num){
-		return checkRow(row,col,num) && checkCol(row,col,num) && checkBox(row - row%boxSize,col - col%boxSize,num);
+		return checkRow(row,col,num) && checkCol(row,col,num) && checkBox(row - row % boxSize,col - col % boxSize,num);
 	}
 
 
@@ -155,7 +154,7 @@ public class SolveSoduku {
 
 		SolveSoduku obj = new SolveSoduku(soduku);
 		obj.solve(0, 0);
-		obj.printSoduku();
+	//	obj.printSoduku();
 	}
 
 	private void printSoduku()
@@ -163,7 +162,7 @@ public class SolveSoduku {
 		for (int row = 0; row < size; ++row)
 		{
 			if (row % boxSize == 0)
-				System.out.println("+-----------------------+");
+				System.out.println("+-------+-------+-------+");
 
 			for (int col = 0; col < size; col++)
 			{
@@ -173,6 +172,6 @@ public class SolveSoduku {
 			}
 			System.out.println("|");
 		}
-		System.out.println("+-----------------------+");
+		System.out.println("+-------+-------+-------+");
 	}
 }
