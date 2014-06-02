@@ -50,6 +50,7 @@ public class KnightTour {
 					
 					knightTour(board,row - 2 , col - 1, curr+1 );
 					knightTour(board,row - 1 , col - 2, curr+1 );
+					
 					knightTour(board,row + 1 , col - 2, curr+1 );
 					knightTour(board,row + 2 , col - 1, curr+1 );
 					
