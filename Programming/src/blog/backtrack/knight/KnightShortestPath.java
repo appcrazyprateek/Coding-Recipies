@@ -1,10 +1,9 @@
 package blog.backtrack.knight;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 
+ * Find the least number of hops between source and destination
  * @author PRATEEK
  */
 public class KnightShortestPath {
@@ -23,15 +22,17 @@ public class KnightShortestPath {
 
 	public static void main(String[] args) {
 
-		int[][] board = { { -1, -1, -1, -1, -1, -1, -1, -1 },
-				{ -1, -1, -1, -1, -1, -1, -1, -1 },
-				{ -1, -1, -1, -1, -1, -1, -1, -1 },
-				{ -1, -1, -1, -1, -1, -1, -1, -1 },
-
-				{ -1, -1, -1, -1, -1, -1, -1, -1 },
-				{ -1, -1, -1, -1, -1, -1, -1, -1 },
-				{ -1, -1, -1, -1, -1, -1, -1, -1 },
-				{ -1, -1, -1, -1, -1, -1, -1, -1 } };
+		int[][] board = {
+				{-1, -1, -1,-1,   -1, -1,  -1, -1},
+				{-1, -1, -1,-1,   -1, -1,  -1, -1},
+				{-1, -1, -1,-1,   -1, -1,  -1, -1},
+				{-1, -1, -1,-1,   -1, -1,  -1, -1},
+				
+				{-1, -1, -1,-1,   -1, -1,  -1, -1},
+				{-1, -1, -1,-1,   -1, -1,  -1, -1},
+				{-1, -1, -1,-1,   -1, -1,  -1, -1},
+				{-1, -1, -1,-1,   -1, -1,  -1, -1}
+		};
 
 		rowLen = board.length;
 		colLen = board[0].length;
@@ -41,12 +42,15 @@ public class KnightShortestPath {
 	public static void path(int[][] board, int row, int col, int curr) {
 		queue = new LinkedList<Coordinate>();
 		queue.add(new Coordinate(row, col));
-
+		int hops=0; 
+		
 		while (!queue.isEmpty()) {
 			Coordinate popedItem = queue.poll();
 			int r = popedItem.row;
 			int c = popedItem.col;
-
+			
+			board[r][c]= hops;
+			
 			Coordinate[] points = validCoordinates(board, r, c);
 
 			for (Coordinate o : points) {
@@ -108,6 +112,7 @@ class Coordinate implements Comparable<Coordinate> {
 
 	public int row;
 	public int col;
+	public int level;
 
 	public Coordinate() {
 		row = 0;
@@ -117,6 +122,8 @@ class Coordinate implements Comparable<Coordinate> {
 	public Coordinate(int row, int col) {
 		this.row = row;
 		this.col = col;
+		this.level = level;
+		
 	}
 
 	@Override
