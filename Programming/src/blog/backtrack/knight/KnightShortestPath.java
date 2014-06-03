@@ -1,4 +1,5 @@
 package blog.backtrack.knight;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -14,50 +15,60 @@ public class KnightShortestPath {
 	private static int colLen;
 
 	private static Queue<Coordinate> queue;
-	private static Coordinate endCoordinate;
-
-	public KnightShortestPath(int xend, int yend) {
-		endCoordinate = new Coordinate(xend, yend);
-	}
-
+	
 	public static void main(String[] args) {
 
-		int[][] board = {
-				{-1, -1, -1,-1,   -1, -1,  -1, -1},
-				{-1, -1, -1,-1,   -1, -1,  -1, -1},
-				{-1, -1, -1,-1,   -1, -1,  -1, -1},
-				{-1, -1, -1,-1,   -1, -1,  -1, -1},
-				
-				{-1, -1, -1,-1,   -1, -1,  -1, -1},
-				{-1, -1, -1,-1,   -1, -1,  -1, -1},
-				{-1, -1, -1,-1,   -1, -1,  -1, -1},
-				{-1, -1, -1,-1,   -1, -1,  -1, -1}
-		};
+		int[][] board = 
+			  { { -1, -1, -1, -1, -1, -1, -1, -1 },
+				{ -1, -1, -1, -1, -1, -1, -1, -1 },
+				{ -1, -1, -1, -1, -1, -1, -1, -1 },
+				{ -1, -1, -1, -1, -1, -1, -1, -1 },
+
+				{ -1, -1, -1, -1, -1, -1, -1, -1 },
+				{ -1, -1, -1, -1, -1, -1, -1, -1 },
+				{ -1, -1, -1, -1, -1, -1, -1, -1 },
+				{ -1, -1, -1, -1, -1, -1, -1, -1 } };
 
 		rowLen = board.length;
 		colLen = board[0].length;
-		// knightTour(board, 0, 0, 0);
+	int hops=	path(board, 0, 0,rowLen -1 ,colLen -1 );
+	System.out.println(hops);
 	}
 
-	public static void path(int[][] board, int row, int col, int curr) {
+	public static int path(int[][] board, int startRow, int startCol, int endRow, int endCol) {
 		queue = new LinkedList<Coordinate>();
-		queue.add(new Coordinate(row, col));
-		int hops=0; 
-		
+		queue.add(new Coordinate(startRow, startCol));
+		queue.add(null);
+		int hops=0;
+
 		while (!queue.isEmpty()) {
 			Coordinate popedItem = queue.poll();
-			int r = popedItem.row;
-			int c = popedItem.col;
-			
-			board[r][c]= hops;
-			
-			Coordinate[] points = validCoordinates(board, r, c);
 
-			for (Coordinate o : points) {
-				if (o != null)
-					queue.add(o);
-			}
+			if (popedItem == null) {
+				hops++;
+				queue.offer(null);
+				//System.out.println("======");
+				continue;
+			} 
+			
+				int r = popedItem.row;
+				int c = popedItem.col;
+
+				board[r][c] = hops;
+				
+				//System.out.println(hops + " " + r + " " + c);
+				
+				if(r==endRow && c==endCol)
+					return hops;
+
+				Coordinate[] points = validCoordinates(board, r, c);
+
+				for (Coordinate o : points) {
+					if (o != null)
+						queue.add(o);
+				}
 		}
+		return -1;
 	}
 
 	private static boolean isValid(int[][] board, int row, int col) {
@@ -123,7 +134,7 @@ class Coordinate implements Comparable<Coordinate> {
 		this.row = row;
 		this.col = col;
 		this.level = level;
-		
+
 	}
 
 	@Override
