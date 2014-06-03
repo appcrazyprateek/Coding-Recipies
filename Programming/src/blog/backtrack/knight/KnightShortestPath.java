@@ -9,7 +9,6 @@ import java.util.Queue;
  */
 public class KnightShortestPath {
 
-	private static int count = 0;
 	private static final int BLANK = -1;
 	private static int rowLen;
 	private static int colLen;
@@ -39,6 +38,7 @@ public class KnightShortestPath {
 		queue = new LinkedList<Coordinate>();
 		queue.add(new Coordinate(startRow, startCol));
 		queue.add(null);
+		board[startRow][startCol] = 0;
 		int hops=0;
 
 		while (!queue.isEmpty()) {
@@ -59,7 +59,11 @@ public class KnightShortestPath {
 				//System.out.println(hops + " " + r + " " + c);
 				
 				if(r==endRow && c==endCol)
+				{
+					printSol(board);
 					return hops;
+				}
+					
 
 				Coordinate[] points = validCoordinates(board, r, c);
 
@@ -76,16 +80,6 @@ public class KnightShortestPath {
 				&& board[row][col] == BLANK)
 			return true;
 		return false;
-	}
-
-	private static void printSol(int[][] board) {
-		for (int i = 0; i < colLen; i++) {
-			for (int j = 0; j < rowLen; j++) {
-				System.out.print(board[i][j] + "\t");
-			}
-			System.out.println();
-		}
-		System.out.println("Done" + count);
 	}
 
 	public static Coordinate[] validCoordinates(int[][] board, int row, int col) {
@@ -117,6 +111,17 @@ public class KnightShortestPath {
 
 		return points;
 	}
+	
+	private static void printSol(int[][] board) {
+		for(int i=0;i<colLen;i++)
+		{
+			for(int j=0;j<rowLen;j++)
+			{
+				System.out.print(board[i][j]+ "   ");
+			}
+			System.out.println();
+		}
+	}
 }
 
 class Coordinate implements Comparable<Coordinate> {
@@ -136,7 +141,6 @@ class Coordinate implements Comparable<Coordinate> {
 		this.level = level;
 
 	}
-
 	@Override
 	public int compareTo(Coordinate that) {
 		return this.row - that.row - this.col - that.col;
