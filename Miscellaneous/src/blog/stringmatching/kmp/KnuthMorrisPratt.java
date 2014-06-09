@@ -29,10 +29,10 @@ public class KnuthMorrisPratt {
 
 	public static void main(String[] args) {
 		KnuthMorrisPratt k = new KnuthMorrisPratt();
-		String text = "Lorem ipppsuuum dolor sit amet";
+		String text = "Lorem ipppsuuum dolor sit ipppsuuum amet";
 		//String pattern = "ipppsuuum";
 		
-		String pattern = "abc";
+		String pattern = "ipppsuuum";
 		int first_occur_position = k.kmp(text, pattern);
 		System.out.println("The text '" + pattern + "' is first found on the " + first_occur_position + " position.");
 	}
