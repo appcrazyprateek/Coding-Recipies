@@ -8,20 +8,10 @@ import java.util.Map;
  * @author PRATEEK
  */
 public class MinWindow {
-
 	
 	private static int minWindow = 9999;   //length of minimum window
 	private static int startWord = 0;    //start position 
 	private static int endWord = 0;      //end position
-
-	public static void main(String[] args) {
-
-		String str = "Shopping with flipkart is an awesome experience";
-		String pat = "awesome with flipkart";
-		minWindow(str, pat);
-		System.out.println("Start :" + startWord + "   End : " + endWord);
-
-	}
 
 	/**
 	 * Sub-routine to minumum window in which all words of pattern are found in the given string
@@ -31,7 +21,7 @@ public class MinWindow {
 	public static void minWindow(String str, String pat) { 
 		
 		Map<String, Integer> toFind = new HashMap<String, Integer>(); //words to be found
-		Map<String, Integer> found;   // the set of words which are found
+		Map<String, Integer> found  = new HashMap<String, Integer>();   // the set of words which are found
 		int foundCount = 0;
 		int tempStart = 0;
 		
@@ -41,10 +31,9 @@ public class MinWindow {
 		String[] temp = pat.split(" ");
 		int pLen = temp.length;
 
+		//filling the 'toFind' map
 		for (String val : temp)
 			toFind.put(val, toFind.get(val) == null ? 1 : toFind.get(val) + 1);
-
-		found = new HashMap<String, Integer>(toFind.size());
 
 		for (int index = 0; index < sLen; index++) 
 		{
@@ -77,5 +66,14 @@ public class MinWindow {
 				}
 			}
 		}
+	}
+	
+	public static void main(String[] args) {
+
+		String str = "Shopping with xyz.com is an awesome experience";
+		String pat = "awesome with xyz.com";
+		minWindow(str, pat);
+		System.out.println("Start :" + startWord + "   End : " + endWord);
+
 	}
 }
