@@ -12,6 +12,7 @@ public class KnightShortestPath {
 	private static final int BLANK = -1;
 	private static int rowLen;
 	private static int colLen;
+	private int[][] board;
 
 	private static Queue<Coordinate> queue;
 	
@@ -31,13 +32,17 @@ public class KnightShortestPath {
 		rowLen = board.length;
 		colLen = board[0].length;
 	int hops=	path(board, 0, 0,rowLen -1 ,colLen -1 );
-	System.out.println(hops);
+	System.out.println(hops + " Moves");
 	}
 
+	/**
+	 * BFS to find the minimum moves to reach the destination
+	 * @return return number of hops if solution is availale else -1
+	 */
 	public static int path(int[][] board, int startRow, int startCol, int endRow, int endCol) {
 		queue = new LinkedList<Coordinate>();
 		queue.add(new Coordinate(startRow, startCol));
-		queue.add(null);
+		queue.add(null);  //this acts a delimiter
 		board[startRow][startCol] = 0;
 		int hops=0;
 

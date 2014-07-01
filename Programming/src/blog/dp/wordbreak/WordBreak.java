@@ -3,20 +3,25 @@ package blog.dp.wordbreak;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
+/**
+ * @author PRATEEK
+ */
 public class WordBreak {
-
 	private static Set<String> dict;
 	
 	public static void main(String[] args) {
 		
 		dict = new HashSet<String>();
-		dict.add("i");
+		/*dict.add("i");
 		dict.add("love");
 		dict.add("loves");
-		dict.add("samsung");
+		dict.add("samsung");*/
+		dict.add("code");
+		dict.add("to");
+		dict.add("death");
 		
-		String str = "ilovessamsung";
+		//String str = "ilovessamsung";
+		String str = "codetodeath";
 		
 		wBreak(str,0,str.length(),new LinkedHashSet<String>());
 	}
@@ -25,7 +30,7 @@ public class WordBreak {
 	{
 		if(start==size)
 		{
-			printSolution(hash);
+			System.out.println(hash.toString());
 			return ;
 		}
 		
@@ -41,37 +46,4 @@ public class WordBreak {
 			}
 		}
 	}
-	
-	
-	
-	
-	/*public static void wordBreak(String str,Set<String> dict)
-	{
-		int size= str.length();
-		if(size == 0 )
-			return ;
-		
-		boolean[] sol = new boolean[size +1 ];
-		
-		for(int i=0;i<size;i++)
-		{
-			if(sol[i]==false && dict.contains(str.substring(0, i)))
-				sol[i]=true;
-			
-			if(sol[i]==true)
-			{
-				if(i==size)
-					return;
-			}
-			
-		}
-		
-	}*/
-	
-	
-	private static void printSolution(Set<String> hash) {
-		for(String word : hash)
-			System.out.print(word + "\t");
-	}
-
 }

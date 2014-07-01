@@ -26,7 +26,6 @@ public class MaxSumRectInMatrix {
 		
 		MaxSumRectInMatrix obj=new MaxSumRectInMatrix();
 		obj.findMaxSum(M);
-
 	}
 
 	void findMaxSum(int M[][])

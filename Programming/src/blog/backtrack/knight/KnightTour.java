@@ -1,5 +1,9 @@
 package blog.backtrack.knight;
 
+/**
+ * Knights Tour
+ * @author PRATEEK
+ */
 public class KnightTour {
 
 	private static int count=0 ;
@@ -26,8 +30,11 @@ public class KnightTour {
 		knightTour(board, 0, 0, 0);
 	}
 
-	
-	public static void knightTour(int[][] board, int row , int col , int curr)
+
+	/**
+	 * Recursive Sub-routine for Knight's Tour
+	 */
+	private static void knightTour(int[][] board, int row , int col , int curr)
 	{
 		count++;
 			if(isValid(board,row,col))
@@ -41,7 +48,7 @@ public class KnightTour {
 				}
 				else
 				{
-					
+					// All Coordinates from given (row,col)
 					knightTour(board,row + 2 , col + 1, curr+1 );
 					knightTour(board,row + 1 , col + 2, curr+1 );
 					
@@ -59,14 +66,20 @@ public class KnightTour {
 			}
 	}
 
-
+	/**
+	 * Checks if for given row and col, the move is Valid or not
+	 * @return true: Valid Mode, false: Invalid Move
+	 */
 	private static boolean isValid(int[][] board, int row, int col) {
 		if(row >= 0 && row < colLen && col>=0 && col < rowLen && board[row][col]==BLANK)
 			return true;
 		return false;
 	}
 
-
+	/**
+	 * Prints the Chessboard having the hops
+	 * @param board
+	 */
 	private static void printSol(int[][] board) {
 		for(int i=0;i<colLen;i++)
 		{
@@ -76,6 +89,6 @@ public class KnightTour {
 			}
 			System.out.println();
 		}
-		System.out.println("Done" + count);
+		System.out.println("recursive Function called " + count + " times");
 	}
 }

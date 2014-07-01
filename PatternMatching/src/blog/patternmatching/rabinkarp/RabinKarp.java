@@ -1,20 +1,27 @@
 package blog.patternmatching.rabinkarp;
 
 /**
- * Rabin Karp uses hashing technique to search for Strings TODO: Design better
- * hash function
+ * Rabin Karp uses hashing technique to search for Strings 
+ * TODO: Design even better hash function
  * @author PRATEEK
  * 
  */
 public class RabinKarp {
-
+ 
+	//Contant prime number
 	private static final int CONSTANT_PRIME = 101;
+	//Hash Value of the pattern which will remain constant through out the problem
 	private long pathash;
 	private int radix;
+	//Input pattern
 	private String pat;
+	//Pattern Length
 	private int patLen;
+	
+	//Its the place value of Most Significant bit
 	private long RM1;
 
+	//Preprocessing of pattern in the constructor
 	public RabinKarp( String pat) {
 		radix = 256;
 		patLen = pat.length();
@@ -24,9 +31,11 @@ public class RabinKarp {
 		for (int i = 1; i < patLen; i++)
 			RM1 = (radix * RM1) % CONSTANT_PRIME;
 
+		//return hash value of pattern
 		pathash = hash(pat, patLen);
 	}
 
+	//Return hash value of given string from 0 to the input length
 	private long hash(String pat, int len) {
 		long h = 0;
 		for (int j = 0; j < len; j++)
@@ -34,6 +43,10 @@ public class RabinKarp {
 		return h;
 	}
 
+	/**
+	 * Sub-routine called when hash-function is equal,
+	 * character by character comparison is done.
+	 */
 	private boolean doesMatch(String text, int currIndex) {
 		for (int j = 0; j < patLen; j++)
 			if (pat.charAt(j) != text.charAt(currIndex + 1 + j))
@@ -41,6 +54,11 @@ public class RabinKarp {
 		return true;
 	}
 
+	/**
+	 * Search for the pattern in the input string
+	 * @param text
+	 * @return: index where pattern is found in text
+	 */
 	public int search(String text) {
 		int textLen = text.length();
 		if (patLen > textLen)
@@ -59,7 +77,7 @@ public class RabinKarp {
 	public static void main(String[] args) {
 
 		String pat = "prateek";
-		String txt = "Welcome prateek to Goldman";
+		String txt = "Welcome prateek to Bangalore";
 		
 		RabinKarp rabin = new RabinKarp( pat);
 		int index= rabin.search(txt);
