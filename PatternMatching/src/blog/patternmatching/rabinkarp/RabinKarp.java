@@ -2,9 +2,7 @@ package blog.patternmatching.rabinkarp;
 
 /**
  * Rabin Karp uses hashing technique to search for Strings 
- * TODO: Design even better hash function
- * @author PRATEEK
- * 
+ * @author PRATEEK Rathore
  */
 public class RabinKarp {
  
@@ -67,7 +65,9 @@ public class RabinKarp {
 		long textHash = hash(text, patLen);
 
 		for (int i = 0; i < textLen - patLen; i++) {
-			textHash = radix * (textHash - RM1 * text.charAt(i))% CONSTANT_PRIME   +   CONSTANT_PRIME + text.charAt(i + patLen) % CONSTANT_PRIME;
+			textHash = radix * (textHash - RM1 * text.charAt(i))% CONSTANT_PRIME 
+							+ CONSTANT_PRIME 
+							+ text.charAt(i + patLen) % CONSTANT_PRIME;
 			if (textHash == pathash && doesMatch(text, i))
 				return i;
 		}

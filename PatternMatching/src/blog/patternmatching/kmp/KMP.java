@@ -1,5 +1,7 @@
 package blog.patternmatching.kmp;
 
+import java.util.Arrays;
+
 /**
  * Knuth- Morris Pratt Algo
  * @author PRATEEK
@@ -16,15 +18,19 @@ public class KMP {
 
 		int i = 1, j = 0;
 		while (i < size) {
-			if (table[i] == table[j])
-				table[i++] = 1 + j++;
+			if (pat.charAt(i) == pat.charAt(j))
+					table[i++] = 1 + j++;
 
+			//Mismatch
 			else if (j > 0)
 				j = table[j - 1];
 
-			else
+			//Mismatch
+			else //j==0
 				table[i++] = 0;
+				
 		}
+		System.out.println(Arrays.toString(table));
 		return table;
 	}
 
@@ -41,12 +47,19 @@ public class KMP {
 		int i = 0, j = 0;
 		int[] table = patternProcessing(pat);
 
+		int count =0;
 		while (i < textLen) 
 		{
+			count++;
 			if (text.charAt(i) == pat.charAt(j)) 
 			{
 				if (j == patLen-1)
-					return i - j;
+				{
+					
+					System.out.println("Found : " + (i++ -j));
+					//return i - j;
+				}
+					
 				else 
 				   {	i++;j++; }
 
@@ -57,12 +70,14 @@ public class KMP {
 				i++;
 				
 		}
+		//System.out.println("Count :" +count);
+		//System.out.println(text.length());
 		return -1;
 	}
 	
 	public static void main(String[] args) {
 		String text = "abcacabacaaaabcccbaa";
-		String pat = "acabacaa";
+		String pat = "abacaaaa";
 		
 		int index= kmp(text,pat);
 		System.out.println("found at " + index);
