@@ -3,7 +3,6 @@ package blog.bits.misc;
 /**
  * Add two numbers without '+' operator refer:
  * http://en.wikipedia.org/wiki/Adder_%28electronics%29#Half_adder
- * 
  * @author PRATEEK
  */
 public class AddNumbers {
