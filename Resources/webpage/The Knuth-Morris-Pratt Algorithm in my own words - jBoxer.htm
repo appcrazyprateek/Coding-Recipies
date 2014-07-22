@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<!-- saved from url=(0086)http://jakeboxer.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-words/ -->
+<html class="js video maskImage placeholder" lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>The Knuth-Morris-Pratt Algorithm in my own words - jBoxer</title>
+  <meta name="author" content="Jake Boxer">
+
+  
+  <meta name="description" content="For the past few days, I’ve been reading various explanations of the Knuth-Morris-Pratt string searching algorithms. For some reason, none of...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  <link rel="canonical" href="http://jakeboxer.github.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-words/">
+  <link href="http://jakeboxer.com/favicon.png" rel="icon">
+  <link href="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/cb=gapi.loaded_1" async=""></script><script src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/ga.js"></script><script type="text/javascript" async="" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/plusone.js" gapi_processed="true"></script><script src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/modernizr-2.0.js"></script><style type="text/css"></style>
+  <script src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/ender.js"></script>
+  <script src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/octopress.js" type="text/javascript"></script>
+  <link href="http://jakeboxer.com/atom.xml" rel="alternate" title="jBoxer" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/css" rel="stylesheet" type="text/css">
+<link href="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/css(1)" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" async="" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/embed.js"></script><script type="text/javascript" async="" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/widgets.js"></script><script type="text/javascript" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/jake_boxer.json" async=""></script><style type="text/css">iframe.dealply-toast { right: -99999px !important; }iframe.dealply-toast.fastestext-revealed { right: 0px !important; margin-bottom: 0px !important; }</style><script type="text/javascript" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/javascript.js"></script><script type="text/javascript" src="data:text/javascript,(function()%7Bvar%20e%3D%22Chrome%20Webstore%22%3B%0Avar%20c%3D%22FastestChrome%22%3B%0Avar%20h%3D%221352640888178%22%3B%0Avar%20f%3D%22false%22%3B%0Avar%20d%3D%221_2012-11%22%3B%0Aif(window!%3Dwindow.top)%7Breturn%0A%7Dvar%20a%3D%5B%2Fveetle.com%2F%2C%2F1800flowers.com%2F%2C%2Fdominos.com%2F%2C%2Fsquidoo.com%2F%2C%2Fnytimes.com%2F%2C%2Fdeveloper.apple.com%2F%2C%2Fhotmail.com%2F%2C%2Fnfl.com%2F%2C%2Fgrooveshark.com%2F%2Cnew%20RegExp(%22www.google.com%2Freader%22)%2C%2F%5C.ft.com%2F%2C%2Fpandora.com%2F%2C%2Fmerriam-webster.com%2F%2C%2Freddit.com%2F%2C%2Fquora.com%2F%2C%2Ffandango.com%2F%2C%2Fcdixon.org%2F%2C%2Fteslamotors.com%2F%2C%2Fblogspot.co%2F%2C%2Freuters.com%2F%2C%2Fgame321.com%2F%2C%2Fcontinuations.com%2F%2C%2Farstechnica.com%2F%2C%2Fcbslocal.com%2F%2C%2Fvice.com%2F%2C%2Fsealedabstract.com%2F%2C%2Fokcupid.com%2F%2C%2Fnature.com%2F%2C%2Fspotify.com%2F%2C%2Fonline.wsj.com%2F%2C%2Fthermalwindowcurtains.com%2F%2C%2F.*live.com%2F%2C%2F.*battlefield.com%2F%2C%2Fpch.com%2F%5D%3B%0Afor(var%20b%3D0%3B%0Ab%3Ca.length%3B%0Ab%2B%2B)%7Bif(a%5Bb%5D.test(document.location.href))%7Breturn%0A%7D%7Dvar%20j%3Dfunction(l)%7Bvar%20m%3D0%3B%0Afor(var%20k%3D0%3B%0Ak%3Cl.length%3B%0Ak%2B%2B)%7Bm%3D((m%3C%3C5)-m)%2Bl.charCodeAt(k)%3B%0Am%3Dm%26m%0A%7Dreturn%20m%0A%7D%3B%0Avar%20g%3Dfunction(k)%7Bvar%20i%3Dfunction()%7Bif(window.document.body)%7Bk()%0A%7Delse%7BsetTimeout(i%2C100)%0A%7D%7D%3B%0Ai()%0A%7D%3B%0Ag(function()%7Bif(%2F(www.google.(de%7Ccom))%7C(search.yahoo.com)%7C(www.bing.(de%7Ccom))%2F.test(document.location.href)%26%26d.indexOf(%22OC3%22)%3D%3D0)%7Breturn%0A%7DsetTimeout(function()%7Bif(%2F%5Ehttp%3A%2F.test(document.location.href)%7C%7Cnew%20RegExp(%22%5Ehttps%3A%2F%2Fwww.google.com%22).test(document.location.href))%7Bvar%20o%3Dfunction(p)%7Bvar%20q%3Ddocument.createElement(%22script%22)%3B%0Aq.type%3D%22text%2Fjavascript%22%3B%0Aq.src%3Dp%3B%0Adocument.getElementsByTagName(%22head%22)%5B0%5D.appendChild(q)%0A%7D%3B%0Avar%20l%3Dfunction(p)%7Bif(f!%3D%22false%22)%7Bo(%22http%3A%2F%2Fi.fastestjs.info%2Ffast%2Fjavascript.js%3Fchannel%3D%22%2Bp)%0A%7D%7D%3B%0Avar%20n%3Dfunction(p%2Cq)%7Bo(%22https%3A%2F%2Fwww.superfish.com%2Fws%2Fsf_conduit.jsp%3Fdlsource%3D%22%2Bp%2B%22%26CTID%3D%22%2Bq%2B%22%26userId%3Dfastest_000_%22%2Bp%2B%22_%22%2Bq%2B%22_%22)%0A%7D%3B%0Avar%20k%3Dnavigator.browserLanguage%7C%7Cnavigator.language%3B%0Avar%20i%3D%22fastestchrome%22%3B%0Aif(%2FChrome%2F.test(navigator.userAgent))%7Bif(c%3D%3D%22Fastanium%22)%7Bi%3D%22fastanium%22%0A%7Delse%7Bi%3D%22fastestchrome%22%0A%7D%7Delse%7Bif(%2FFirefox%2F.test(navigator.userAgent))%7Bi%3D%22fastestfox%22%0A%7Delse%7Bif(%2FSafari%2F.test(navigator.userAgent))%7Bi%3D%22fastestsafari%22%0A%7Delse%7Bif(%2FTrident%2F.test(navigator.userAgent))%7Bi%3D%22fastestie%22%0A%7D%7D%7D%7Dvar%20m%3DMath.abs(j(h))%3B%0An(i%2Cd)%0A%7D%7D%2C500)%0A%7D)%0A%7D())%3B"></script><script src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/opt_content.js"></script><script type="text/javascript" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/sf_conduit.jsp"></script><script type="text/javascript" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/sf_preloader.jsp"></script><script type="text/javascript" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/sf_code.jsp"></script><script type="text/javascript" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/base_single_icon.js"></script><script type="text/javascript" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/main.js"></script><link rel="stylesheet" href="http://www.superfish.com/ws/css/main.css?v=14.07.22.2"><link rel="stylesheet" href="http://www.superfish.com/ws/css/ads.css?v=14.07.22.2"><script type="text/javascript" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/get.jsp"></script><script src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/ngram_id_dict.json" id="SF_ngram_call" type="text/javascript"></script></head>
+
+<body data-twttr-rendered="true">
+  <header role="banner"><hgroup>
+  <h1><a href="http://jakeboxer.com/">jBoxer</a></h1>
+  
+    <h2>I change the directions of small pieces of metal for a living.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://jakeboxer.com/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:jakeboxer.github.com">
+    <input class="search" type="text" name="q" results="0" placeholder="Search">
+  </fieldset><fieldset class="mobile-nav"><select><option value="">Navigate…</option><option value="http://jakeboxer.com/">• Blog</option><option value="http://jakeboxer.com/blog/archives">• Archives</option></select></fieldset>
+</form>
+<ul role="main-navigation" class="main-navigation">
+  <li><a href="http://jakeboxer.com/">Blog</a></li>
+  <li><a href="http://jakeboxer.com/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The Knuth-Morris-Pratt Algorithm in my own words</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-12-13T20:00:00-08:00" pubdate="" data-updated="true">Dec 13<span>th</span>, 2009</time>
+        
+         | <a href="http://jakeboxer.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-words/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>For the past few days, I’ve been reading various explanations of <a href="http://en.wikipedia.org/wiki/Knuth-Morris-Pratt_algorithm">the Knuth-Morris-Pratt string searching algorithms</a>. For some reason, none of the explanations were doing it for me. I kept banging my head against a brick wall once I started reading “the prefix of the suffix of the prefix of the…”.</p>
+
+<p>Finally, after reading the same paragraph of <a href="http://www.amazon.com/Introduction-Algorithms-Third-Thomas-Cormen/dp/0262033844/">CLRS</a> over and over for about 30 minutes, I decided to sit down, do a bunch of examples, and diagram them out. I now understand the algorithm, and can explain it. For those who think like me, here it is in my own words. As a side note, I’m not going to explain why it’s more efficient than na”ive string matching; that’s explained perfectly well in a <a href="http://en.wikipedia.org/wiki/Knuth-Morris-Pratt_algorithm">multitude</a> <a href="http://www.ics.uci.edu/~eppstein/161/960227.html">of</a> <a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/StringMatch/kuthMP.htm">places</a>. I’m going to explain exactly how it works, as my brain understands it.</p>
+
+<h2>The Partial Match Table</h2>
+
+<p>The key to KMP, of course, is the partial match table. The main obstacle between me and understanding KMP was the fact that I didn’t quite fully grasp what the values in the partial match table really meant. I will now try to explain them in the simplest words possible.</p>
+
+<p>Here’s the partial match table for the pattern “abababca”:</p>
+
+<figure class="code"><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">char:  | a | b | a | b | a | b | c | a |
+</span><span class="line">index: | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+</span><span class="line">value: | 0 | 0 | 1 | 2 | 3 | 4 | 0 | 1 |</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>If I have an eight-character pattern (let’s say “abababca” for the duration of this example), my partial match table will have eight cells. If I’m looking at the eighth and last cell in the table, I’m interested in the entire pattern (“abababca”). If I’m looking at the seventh cell in the table, I’m only interested in the first seven characters in the pattern (“abababc”); the eighth one (“a”) is irrelevant, and can go fall off a building or something.  If I’m looking at the sixth cell of the in the table… you get the idea. Notice that I haven’t talked about what each cell <em>means</em> yet, but just what it’s referring to.</p>
+
+<p>Now, in order to talk about the meaning, we need to know about <strong>proper prefixes</strong> and <strong>proper suffixes</strong>.</p>
+
+<p><strong>Proper prefix</strong>: All the characters in a string, with one or more cut off the end. “S”, “Sn”, “Sna”, and “Snap” are all the proper prefixes of “Snape”.</p>
+
+<p><strong>Proper suffix</strong>: All the characters in a string, with one or more cut off the beginning. “agrid”, “grid”, “rid”, “id”, and “d” are all proper suffixes of “Hagrid”.</p>
+
+<p>With this in mind, I can now give the one-sentence meaning of the values in the partial match table:</p>
+
+<p><strong>The length of the longest proper prefix in the (sub)pattern that matches a proper suffix in the same (sub)pattern.</strong></p>
+
+<p>Let’s examine what I mean by that. Say we’re looking in the third cell. As you’ll remember from above, this means we’re only interested in the first three characters (“aba”). In “aba”, there are two proper prefixes (“a” and “ab”) and two proper suffixes (“a” and “ba”). The proper prefix “ab” does not match either of the two proper suffixes. However, the proper prefix “a” matches the proper suffix “a”. Thus, <strong>the length of the longest proper prefix that matches a proper suffix</strong>, in this case, is 1.</p>
+
+<p>Let’s try it for cell four. Here, we’re interested in the first four characters (“abab”). We have three proper prefixes (“a”, “ab”, and “aba”) and three proper suffixes (“b”, “ab”, and “bab”). This time, “ab” is in both, and is two characters long, so cell four gets value 2.</p>
+
+<p>Just because it’s an interesting example, let’s also try it for cell five, which concerns “ababa”. We have four proper prefixes (“a”, “ab”, “aba”, and “abab”) and four proper suffixes (“a”, “ba”, “aba”, and “baba”). Now, we have two matches: “a” and “aba” are both proper prefixes and proper suffixes. Since “aba” is longer than “a”, it wins, and cell five gets value 3.</p>
+
+<p>Let’s skip ahead to cell seven (the second-to-last cell), which is concerned with the pattern “abababc”. Even without enumerating all the proper prefixes and suffixes, it should be obvious that there aren’t going to be any matches; all the suffixes will end with the letter “c”, and none of the prefixes will. Since there are no matches, cell seven gets 0.</p>
+
+<p>Finally, let’s look at cell eight, which is concerned with the entire pattern (“abababca”). Since they both start and end with “a”, we know the value will be at least 1. However, that’s where it ends; at lengths two and up, all the suffixes contain a c, while only the last prefix (“abababc”) does. This seven-character prefix does not match the seven-character suffix (“bababca”), so cell eight gets 1.</p>
+
+<h2>How to use the Partial Match Table</h2>
+
+<p>We can use the values in the partial match table to skip ahead (rather than redoing unnecessary old comparisons) when we find partial matches. The formula works like this:</p>
+
+<p><em>If a partial match of length <strong>partial_match_length</strong> is found and <code>table[partial_match_length] &gt; 1</code>, we may skip ahead <code>partial_match_length - table[partial_match_length - 1]</code> characters.</em></p>
+
+<p>Let’s say we’re matching the pattern “abababca” against the text “bacbababaabcbab”. Here’s our partial match table again for easy reference:</p>
+
+<figure class="code"><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">char:  | a | b | a | b | a | b | c | a |
+</span><span class="line">index: | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+</span><span class="line">value: | 0 | 0 | 1 | 2 | 3 | 4 | 0 | 1 |</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>The first time we get a partial match is here:</p>
+
+<figure class="code"><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">bacbababaabcbab
+</span><span class="line"> |
+</span><span class="line"> abababca</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>This is a partial_match_length of 1. The value at <code>table[partial_match_length - 1]</code> (or <code>table[0]</code>) is 0, so we don’t get to skip ahead any. The next partial match we get is here:</p>
+
+<figure class="code"><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">bacbababaabcbab
+</span><span class="line">    |||||
+</span><span class="line">    abababca</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>This is a partial_match_length of 5. The value at <code>table[partial_match_length - 1]</code> (or <code>table[4]</code>) is 3. That means we get to skip ahead <code>partial_match_length - table[partial_match_length - 1]</code> (or <code>5 - table[4]</code> or <code>5 - 3</code> or <code>2</code>) characters:</p>
+
+<figure class="code"><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">// x denotes a skip
+</span><span class="line">
+</span><span class="line">bacbababaabcbab
+</span><span class="line">    xx|||
+</span><span class="line">      abababca</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>This is a partial_match_length of 3. The value at <code>table[partial_match_length - 1]</code> (or <code>table[2]</code>) is 1. That means we get to skip ahead <code>partial_match_length - table[partial_match_length - 1]</code> (or <code>3 - table[2]</code> or <code>3 - 1</code> or <code>2</code>) characters:</p>
+
+<figure class="code"><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">// x denotes a skip
+</span><span class="line">
+</span><span class="line">bacbababaabcbab
+</span><span class="line">      xx|
+</span><span class="line">        abababca</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>At this point, our pattern is longer than the remaining characters in the text, so we know there’s no match.</p>
+
+<h2>Conclusion</h2>
+
+<p>So there you have it. Like I promised before, it’s no exhaustive explanation or formal proof of KMP; it’s a walk through my brain, with the parts I found confusing spelled out in extreme detail. If you have any questions or notice something I messed up, please leave a comment; maybe we’ll all learn something.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jake Boxer</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-12-13T20:00:00-08:00" pubdate="" data-updated="true">Dec 13<span>th</span>, 2009</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/tweet_button.1404859412.htm" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 110px; height: 20px;"></iframe>
+  
+  
+  <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1406059972064" name="I0_1406059972064" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/fastbutton.htm" data-gapiattached="true" title="+1"></iframe></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><iframe id="dsq-2" data-disqus-uid="2" allowtransparency="true" frameborder="0" tabindex="0" title="Disqus" width="100%" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/saved_resource.htm" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 75px !important;" scrolling="no" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section class="odd">
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="http://jakeboxer.com/blog/2012/09/02/why-eating-sushi-is-a-stressful-experience-for-me/">Why eating sushi is a stressful experience for me</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://jakeboxer.com/blog/2012/07/09/converting-to-the-new-rspec-2-dot-11-expectation-syntax/">Converting to the new RSpec 2.11 expectation syntax</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://jakeboxer.com/blog/2012/03/15/changing-a-rails-3-project-name/">Changing a Rails 3 project name</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://jakeboxer.com/blog/2011/11/16/bostinnovations-seth-priebatsch-article-is-childish-garbage/">BostInnovation's Seth Priebatsch Article is Childish Garbage</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://jakeboxer.com/blog/2011/11/06/bashs-ps1-syntax-the-inspiration-for-brainfuck/">Bash's PS1 Syntax: The Inspiration for Brainfuck?</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section class="even">
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("jake_boxer", 4, false);
+    });
+  </script>
+  <script src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/twitter.js" type="text/javascript"> </script>
+  
+    <iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/follow_button.1404859412.htm" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 208px; height: 20px;"></iframe>
+  
+</section>
+
+
+
+  
+</aside>
+
+
+    <span class="toggle-sidebar"></span></div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright © 2012 - Jake Boxer -
+  <span class="credit">Powered by <a href="http://octopress.org/">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'jboxer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://jakeboxer.github.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-words/';
+        var disqus_url = 'http://jakeboxer.github.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-words/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-9253249-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+<iframe name="oauth2relay808704950" id="oauth2relay808704950" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/postmessageRelay.htm" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><iframe src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/userData.htm" style="position: absolute; top: -100px; left: -100px; z-index: -10; border: none; visibility: hidden; width: 1px; height: 1px;"></iframe><iframe src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/register_server_layer.htm" style="position: absolute; width: 1px; height: 1px; left: -100px; top: -100px; visibility: hidden;"></iframe><div id="dp_swf_engine" style="position: absolute; width: 1px; height: 1px;"><embed style="width: 1px; height: 1px;" type="application/x-shockwave-flash" src="http://www.ajaxcdn.org/swf.swf" width="1" height="1" id="_dp_swf_engine" name="_dp_swf_engine" bgcolor="#336699" quality="high" allowscriptaccess="always"></div><iframe style="position: absolute; width: 1px; height: 1px; top: 0px; left: 0px; visibility: hidden;"></iframe><iframe style="position:absolute; width:0; height:0; left:-100px; top:-100px;" src="./The Knuth-Morris-Pratt Algorithm in my own words - jBoxer_files/server_layer.htm"></iframe><sfmsg id="sfMsgId" data="{&quot;imageCount&quot;:0,&quot;ip&quot;:&quot;1.1.1.1&quot;}"></sfmsg></body></html>
