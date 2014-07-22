@@ -36,9 +36,10 @@ public class ValidateBrackets {
 			case '[':
 			case '{':
 			case '(':
+			{
 				stack.push(c);
 				break;
-				
+			}	
 			case ']':
 			case '}':
 			case ')':
@@ -50,9 +51,8 @@ public class ValidateBrackets {
 					else if(stack.isEmpty())
 						return false;
 				}
-				
-			}
 				break;
+			  }
 			default:
 				break;
 			}
