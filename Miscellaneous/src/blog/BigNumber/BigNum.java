@@ -1,4 +1,4 @@
-package com.flipkart.bignumber;
+package blog.BigNumber;
 
 public class BigNum {
 
@@ -101,7 +101,7 @@ public class BigNum {
 
 		}
 		if(carry!=0){
-			Sytem.out.println("i: "+i);
+			System.out.println("i: "+i);
 			result.bigArray[i]+=carry;
 
 		}
