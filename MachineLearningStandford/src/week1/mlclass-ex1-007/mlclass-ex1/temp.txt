@@ -1,0 +1,38 @@
+
+
+A=eye(5);
+
+%%%%%%%
+%plotData.m
+plot(x, y, 'rx', 'MarkerSize', 10); % Plot the data
+ylabel('Profit in $10,000s'); % Set the y??axis label
+xlabel('Population of City in 10,000s');
+
+
+%%%%%%%%
+%ComputeCost.m
+m = length(y);
+h=X * theta; % M x 2 and 2 x 1 will result into M x 1
+e = h - y;    % M x 1
+
+%eSq = e.^2;
+%eSum = sum(eSq);
+eSum  = e' * e ; % 1 X M and M x 1 will result into 1 x 1
+J = eSum / (2*m);
+
+%%%%%%%%%%%
+GradientDescent.m		
+		
+theta_temp= theta;
+	[nr,nc] = size(X);
+	
+	h= X * theta_temp; % M x 2 and 2 x 1 will give M x 1
+	e = h - y ;  % M x 1   -   M x 1 will give M x 1
+	e = e' ;  %  1 x M
+	
+	% Xj = X(:,j)
+	%e * Xj    % 1xM  and Mx1
+	for(j=1:nc)
+		Xj = X(:,j);  
+		theta(j) = theta_temp(j) - (alpha/m)*e*Xj;
+	end 
