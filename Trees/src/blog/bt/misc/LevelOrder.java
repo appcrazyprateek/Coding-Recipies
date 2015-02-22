@@ -39,6 +39,18 @@ public class LevelOrder {
 		}
 	}
 	
+	public static void Test(Node root)
+	{
+		Node pre = null;
+				if(root !=null)
+				{
+					Test(root.left);
+					root.left = pre;
+					pre = root;
+					Test(root.right);
+				}
+	}
+	
 	public static void main(String[] args) {
 		Node root = new Node(1);
 		root.left = new Node(2);
@@ -52,7 +64,9 @@ public class LevelOrder {
 		root.right.left = new Node(6);
 		root.right.right = new Node(7);
 
-		LevelOrder obj = new LevelOrder();
-		obj.printLevelOrder(root);
+		Test(root);
+		
+		//LevelOrder obj = new LevelOrder();
+		//obj.printLevelOrder(root);
 	}
 }

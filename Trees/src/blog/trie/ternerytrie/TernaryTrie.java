@@ -89,6 +89,7 @@ public class TernaryTrie {
 		
 		if(foundNode==null){
 			System.out.println("Key not Found");
+			return null;
 		}
 		
 		TernaryTrieNode foundNodeParent=getParent(root,foundNode,key);
@@ -115,6 +116,9 @@ public class TernaryTrie {
 	}
 	
 	
+	
+	
 	public TernaryTrieNode getParent(TernaryTrieNode root, TernaryTrieNode node, String key){
-		return node;}
+		return node;
+		}
 }

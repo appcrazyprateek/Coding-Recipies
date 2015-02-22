@@ -2,14 +2,14 @@ package blog.sorting.basic;
 
 
 public class BasicSorting {
-	static int arr[]={1,5,4,7,3,12,5,9,2,8};
+	static int arr[]={10,5,4,7,3,12,5,9,2,8};
 	public static void main(String[] args) {
 		
 		System.out.println("Before Sorting:");
 		display(arr);
-		//int[] arr=insertionSort(arr);
-		bubbleSort();
-		selectionSort();
+		 arr=insertionSort(arr);
+		//bubbleSort();
+		//selectionSort();
 		System.out.println("After Sorting");
 		display(arr);
 

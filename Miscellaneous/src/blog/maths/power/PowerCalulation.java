@@ -22,13 +22,6 @@ public class PowerCalulation {
 			return base * calulate(base,power-1);
 	}
 	
-	public void test()
-	{
-		ExecutorService e;
-		Callable  x;
-	
-	}
-
 	public static int cal(int base,int power)
 	{
 		if(power==0)

@@ -1,7 +1,7 @@
 package blog.api.unionfind;
 
 /**
- * Union-Find Data structure 
+ * Union-Find Data structure (Lazy implementation)
  * @author Prateek
  * 
  */
@@ -87,7 +87,6 @@ public class UnionFind {
 		for(int i=0;i<numVertices;i++)
 		{
 			System.out.print(nodeHolder[i].parent);
-			
 		}
 	}
 	

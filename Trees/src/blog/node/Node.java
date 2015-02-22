@@ -6,9 +6,7 @@ public class Node implements Comparable<Node> {
 	public Node right;
 
 	public Node(int val)
-	{
-		this.data=val;
-	}
+	{  this.data=val;	}
 
 	@Override
 	public int compareTo(Node that) {

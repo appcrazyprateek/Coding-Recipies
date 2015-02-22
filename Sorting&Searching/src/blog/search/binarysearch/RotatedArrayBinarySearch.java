@@ -1,5 +1,5 @@
 package blog.search.binarysearch;
-public class ModifiedBinarySearch {
+public class RotatedArrayBinarySearch {
 
 	public static void main(String args[]){
 		int a[] = {4, 5, 6, 7, 1, 2, 3};

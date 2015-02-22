@@ -1,9 +1,7 @@
 package blog.patternmatching.kmp;
-
 import java.util.Arrays;
-
 /**
- * Knuth- Morris Pratt Algo
+ * Knuth- Morris Pratt Algorithm
  * @author PRATEEK
  */
 public class KMP {
@@ -19,7 +17,7 @@ public class KMP {
 		int i = 1, j = 0;
 		while (i < size) {
 			if (pat.charAt(i) == pat.charAt(j))
-					table[i++] = 1 + j++;
+					table[i++] = ++j;
 
 			//Mismatch
 			else if (j > 0)
@@ -56,7 +54,8 @@ public class KMP {
 				if (j == patLen-1)
 				{
 					
-					System.out.println("Found : " + (i++ -j));
+					System.out.println("Found : " + (i -j));
+					i++;
 					//return i - j;
 				}
 					
@@ -77,7 +76,7 @@ public class KMP {
 	
 	public static void main(String[] args) {
 		String text = "abcacabacaaaabcccbaa";
-		String pat = "abacaaaa";
+		String pat = "ababa";
 		
 		int index= kmp(text,pat);
 		System.out.println("found at " + index);

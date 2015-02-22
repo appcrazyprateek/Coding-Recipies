@@ -1,7 +1,10 @@
 package blog.median.sortedarrays;
-
+/**
+ * Finds middle element
+ * @author PRATEEK
+ *
+ */
 public class MedianOfSortedArrays {
-
 	
 	public static int[] arr2 = {900}; // {3, 7 , 9 , 17 , 31, 36 , 47, 51 , 58} ;
 	public static int[] arr1 = {5, 8, 10, 20}; //{2, 15 , 18 , 28 , 45, 49 , 54} ;

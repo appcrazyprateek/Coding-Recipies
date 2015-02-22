@@ -2,24 +2,8 @@ package blog.bt.bttodll;
 
 import java.util.LinkedList;
 import java.util.Queue;
-/**
- * Node Structre
- * @author Prateek
- */
-class Node {
-	Node left;
-	int data;
-	Node right ;
-	
-	public Node(int val){
-		this.data=val;
-	}
-	
-	public String toString(){
-		return this.data + "";
-	}
-}
 
+import blog.node.Node;
 /**
  * Binary Tree to DLL conversion
  * @author Prateek

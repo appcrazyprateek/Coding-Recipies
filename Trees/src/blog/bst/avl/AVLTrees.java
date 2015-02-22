@@ -52,6 +52,21 @@ public class AVLTrees {
 			return 	height(node.left) - height(node.right) ;
 	}
 	
+
+	private int isBalance(Node root)
+	{
+		if(root==null)
+		{
+			return 0;
+		}
+			
+		
+		int lh = isBalance(root.left);
+		int rh = isBalance(root.right);
+		
+		return Math.max(lh,rh)+1;
+	}
+	
 	public void insert(Node root,int value)
 	{
 		// Node Insertion

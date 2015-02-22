@@ -1,5 +1,10 @@
 package blog.median.sortedarrays;
 
+/**
+ * Median of two sorted arrays in O(n)
+ * @author PRATEEK
+ *
+ */
 public class FindMedian {
 
 	public static void main(String[] args) {

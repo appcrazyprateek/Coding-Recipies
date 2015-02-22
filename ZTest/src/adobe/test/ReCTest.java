@@ -1,10 +1,13 @@
 package adobe.test;
 
+import java.util.Arrays;
+
 public class ReCTest {
 
 	static int j =0;
 	public static void main(String[] args) {
-		fun(0, 6);
+		//fun(0, 6);
+		//System.out.println(Arrays.toString(a));
 	}
 	
 	public static  void fun(int i,int N)

@@ -1,12 +1,16 @@
-/*package blog.cache.lrucache;
+package blog.cache.lrucache;
 
 import java.util.HashMap;
 
-*//**
- * Item Node structure in the LRU Cache
- * 
- *//*
-class Item	 {
+/**
+ * LRU Cache implementation
+ * @author Prateek
+ */
+public class LRUCache implements Cache{
+
+//  Item Node structure in the LRU Cache
+	  
+ class Item	 {
 	public Item prev;
 	public Item next;
 	public String key;
@@ -24,13 +28,7 @@ class Item	 {
 		return this.key+" : "+this.data;
 	}
 }
-
-*//**
- * LRU Cache implementation
- * @author Prateek
- *//*
-public class LRUCache implements Cache{
-
+	
 	public Item head; 
 	public Item tail;
 	public int maxsize;
@@ -47,10 +45,10 @@ public class LRUCache implements Cache{
 		tail.prev = head;
 	}
 
-	*//**
+	/**
 	 * Add item to the beggining of Linked List
 	 * @param item
-	 *//*
+	 */
 	public void addItemAtFirst(Item item){
 		item.next = head.next;
 		item.prev = head;
@@ -58,19 +56,19 @@ public class LRUCache implements Cache{
 		head.next = item;
 	}
 
-	*//**
-	 * Remove item from the Linked List
-	 * @param item
-	 *//*
+	/**
+	  Remove item from the Linked List
+	  @param item
+	 */
 	public void removeItem(Item item){
 		item.prev.next = item.next;
 		item.next.prev = item.prev ;
 	}
 
-	*//**
+	/**
 	 * @return the value , and remove the node from between and add to the 
-	 *                     the beggining
-	 *//*
+	  *                    the beggining
+	 */
 	public String get(String key){
 
 		Item item= hash.get(key);
@@ -87,9 +85,9 @@ public class LRUCache implements Cache{
 			return null;
 	}
 
-	*//**
+	/**
 	 * Insert to hashmap and linkedlist, if size is exceeded remove the tail element
-	 *//*
+	*/
 	public void put(String key, String data){
 		Item item = hash.get(key);
 		if(item==null) //item not found 
@@ -110,9 +108,9 @@ public class LRUCache implements Cache{
 		}
 	}
 	
-	*//**
+	/**
 	 * Display Cache Content
-	 *//*
+*/
 	public void displayLRUCache(){
 		System.out.println("Items in the Cache");
 		Item temp=head.next;
@@ -124,7 +122,7 @@ public class LRUCache implements Cache{
 	}
 	
 	public static void main(String[] args) {
-		int size= 10 ;
+		int size= 9 ;
 		LRUCache cache = new LRUCache(size);
 		cache.put( "1","1");
 		cache.put( "2","2");
@@ -142,5 +140,10 @@ public class LRUCache implements Cache{
 		
 		cache.displayLRUCache();
 	}
+
+	@Override
+	public boolean isFull() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
-*/

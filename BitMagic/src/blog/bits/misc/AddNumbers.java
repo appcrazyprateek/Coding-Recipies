@@ -6,13 +6,13 @@ package blog.bits.misc;
  * @author PRATEEK
  */
 public class AddNumbers {
+	
 	public static int add1(int a, int b) {
 		while (b != 0) {
 			int carry = a & b;
 			a = a ^ b;
 			b = carry << 1;
 		}
-		
 		return a;
 	}
 
@@ -32,12 +32,10 @@ public class AddNumbers {
 		sum = sum ^ carry;
 		
 		return sum;
-		
 	}
 	
 	public static int add4(int a,int b){
 		return ( 2*( a & b) ) ^ (a ^ b);
-		
 	}
 	
 	public static void main(String[] args) {
@@ -47,5 +45,6 @@ public class AddNumbers {
 		int val4=add4(5, 6);
 		
 		System.out.println(val1 + "  "+val2 + "  "+val3 + "  "+val4 + "  ");
+		System.out.println(3<<1);
 	}
 }

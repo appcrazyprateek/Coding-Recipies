@@ -103,7 +103,6 @@ public class BigNum {
 		if(carry!=0){
 			System.out.println("i: "+i);
 			result.bigArray[i]+=carry;
-
 		}
 
 
