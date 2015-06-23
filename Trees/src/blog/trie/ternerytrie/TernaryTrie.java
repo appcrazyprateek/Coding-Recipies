@@ -26,10 +26,10 @@ public class TernaryTrie {
 			node=new TernaryTrieNode(letter);
 
 		if(node.letter < letter) 
-			node.right = put(node.right,key,val,index+1);
+			node.right = put(node.right,key,val,index);
 
 		else if(node.letter > letter)
-			node.left=put(node.left,key,val,index+1);
+			node.left=put(node.left,key,val,index);
 
 		else if(index == (key.length()-1))
 			node.middle= put(node.left,key,val,index+1);
@@ -115,10 +115,7 @@ public class TernaryTrie {
 		return null;
 	}
 	
-	
-	
-	
 	public TernaryTrieNode getParent(TernaryTrieNode root, TernaryTrieNode node, String key){
 		return node;
-		}
+	}
 }

@@ -4,6 +4,7 @@ public class Node implements Comparable<Node> {
 	public Node left;
 	public int data;
 	public Node right;
+	public Node peer;
 
 	public Node(int val)
 	{  this.data=val;	}

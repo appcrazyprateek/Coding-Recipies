@@ -1,5 +1,11 @@
 package blog.bst.misc;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
+
 import blog.node.Node;
 
 /**
@@ -8,7 +14,7 @@ import blog.node.Node;
  */
 class TreeOperations {
 
-	public Node startnode;
+	public Node starNode;
 
 	// ---------------------------------------- Insert Node in Tree
 
@@ -29,7 +35,7 @@ class TreeOperations {
 	}
 
 	public void insert(int val) {
-		insert( val, startnode) ;
+		insert( val, starNode) ;
 	}
 
 	// using non-recursion
@@ -39,7 +45,7 @@ class TreeOperations {
 		// if tree is null
 		if (root == null){
 			root = newNode;
-			startnode = newNode; // saving root in static variable
+			starNode = newNode; // saving root in static variable
 		}
 
 		else {
@@ -69,16 +75,62 @@ class TreeOperations {
 			}
 		}
 	}
+	
+
+	public static Node insert2(Node head, Node parent, int val,
+			boolean isLeft) {
+		Node root = head;
+		if (root == null) {
+			root = new Node(val);
+			if (parent != null) {
+				if (isLeft)
+					parent.left = root;
+
+				else
+					parent.right = root;
+			}
+		} else if (root.data > val)
+			insert2(root.left, root, val, true);
+		else
+			insert2(root.right, root, val, false);
+		return root;
+	}
+
+	public static Node insert1(Node head, int val) {
+		if (head == null)
+			return new Node(val);
+
+		Node parent = null;
+		Node child = head;
+		while (child != null) {
+			parent = child;
+			if (child.data > val) {
+				child = child.left;
+			} else {
+				child = child.right;
+			}
+		}
+		Node temp = new Node(val);
+		if (parent.data > val) {
+			parent.left = temp;
+		} else {
+			parent.right = temp;
+		}
+		return head;
+	}
+
+	
+	
 
 	// ---------------------------------------- Delete Node in Tree ------------------------------
 	public boolean deleteNode(int val) {
 
-		if(startnode==null)
+		if(starNode==null)
 			return false;
 
 
-		Node current=startnode;
-		Node parent=startnode;
+		Node current=starNode;
+		Node parent=starNode;
 		boolean isLeftChild=true;
 
 		// Find the node Logic Starts Here
@@ -106,8 +158,8 @@ class TreeOperations {
 		//Case 1: No childs of current
 		if(current.left == null && current.right == null)
 		{
-			if(current==startnode)
-				startnode=null;
+			if(current==starNode)
+				starNode=null;
 			else
 			{
 				if(isLeftChild)
@@ -120,8 +172,8 @@ class TreeOperations {
 		// Case 2a: No left child
 		else if(current.left == null ){
 
-			if(current==startnode)
-				startnode=current.right;
+			if(current==starNode)
+				starNode=current.right;
 
 			else{
 				if(isLeftChild)
@@ -133,8 +185,8 @@ class TreeOperations {
 
 		//Case 2b: No right child
 		else if(current.right == null){
-			if(current == startnode)
-				startnode=current.left;
+			if(current == starNode)
+				starNode=current.left;
 			else{
 				if(isLeftChild)
 					parent.left=current.left;
@@ -155,8 +207,8 @@ class TreeOperations {
 			{
 				successor.left=current.left;
 
-				if(current==startnode)
-					startnode=successor;
+				if(current==starNode)
+					starNode=successor;
 				else
 				{
 
@@ -172,8 +224,8 @@ class TreeOperations {
 				Node successorParent=getSuccessorParent(current);
 				successorParent.left= successor.right;
 
-				if(current==startnode)
-					startnode=successor;
+				if(current==starNode)
+					starNode=successor;
 				else
 				{
 					if(isLeftChild)
@@ -188,6 +240,76 @@ class TreeOperations {
 		return true;
 	}
 
+//------------------- Alternative Code to DElete a Node in Tree
+	
+	public static boolean deleteNode(Node root, Node node) {
+		boolean isLeft = false;
+		if (root == null)
+			return false;
+
+		Node curr = root;
+		Node parent = root;
+
+		// Logic to find the node
+		while (curr.data != node.data) {
+			parent = curr;
+			if (node.data > curr.data) {
+				isLeft = false;
+				curr = curr.right;
+			} else {
+				isLeft = true;
+				curr = curr.right;
+			}
+
+			if (curr == null)
+				return false;
+		}
+
+		// Case 1; No Childs
+		if (curr.left == null && curr.right == null) {
+			if (isLeft)
+				parent.left = null;
+			else
+				parent.right = null;
+		}
+
+		// Case 2a: Left Child Present and Right Child is Null
+		else if (curr.left != null && curr.right == null) {
+			if (isLeft) {
+				parent.left = curr.left;
+			} else {
+				parent.right = curr.left;
+			}
+			curr.left = null;
+		}
+		// Case 2b: Left Child Null and Right Child is Present
+		else if (curr.left == null && curr.right != null) {
+			if (isLeft) {
+				parent.left = curr.right;
+			} else {
+				parent.right = curr.right;
+			}
+			curr.right = null;
+		} else // 3. Both the Children present
+		{
+			Node child = curr.right;
+			parent = null;
+
+			while (child.left != null) {
+				parent = child;
+				child = child.left;
+			}
+
+			curr.data = child.data;
+			if (parent == null) {
+				curr.right = child.right;
+			} else {
+				parent.left = child.right;
+			}
+		}
+		return true;
+	}
+	
 	//--------------------------------Parent of Inorder Successor ------------------------------------------------
 	public Node getSuccessorParent(Node node){
 		Node temp=node;
@@ -203,7 +325,7 @@ class TreeOperations {
 
 	// ---------------------------------------- Display Tree
 	public void display() {
-		display(startnode) ;
+		display(starNode) ;
 	}
 
 	public void display(Node root) {
@@ -214,7 +336,7 @@ class TreeOperations {
 	}
 
 	public void inorder() {
-		inorder(startnode);
+		inorder(starNode);
 	}
 	public void inorder(Node root) {
 		if (root != null) {
@@ -225,7 +347,7 @@ class TreeOperations {
 	}
 
 	public void preorder() {
-		preorder(startnode);
+		preorder(starNode);
 	}
 	public void preorder(Node root) {
 		if (root != null) {
@@ -236,7 +358,7 @@ class TreeOperations {
 	}
 
 	public void postorder() {
-		postorder(startnode);
+		postorder(starNode);
 	}
 	public void postorder(Node root) {
 		if (root != null) {
@@ -249,7 +371,7 @@ class TreeOperations {
 
 	//--------------------------- GET Predecessor ------------------------
 	public Comparable getPredecessor(int val) {
-		return getPredecessor(startnode, val );
+		return getPredecessor(starNode, val );
 	}
 
 	/**
@@ -290,7 +412,7 @@ class TreeOperations {
 
 	//--------------------------- GET Successor ------------------------
 	public Comparable getSuccessor (int val) {
-		return getSuccessor ( startnode , val) ;
+		return getSuccessor ( starNode , val) ;
 	}
 
 	public Comparable getSuccessor (Node root , int val) {
@@ -325,7 +447,7 @@ class TreeOperations {
 
 	//-----------------------Get Minimum Value------------------------
 	public int minValue(){
-		return minValue(startnode);
+		return minValue(starNode);
 	}
 
 
@@ -347,7 +469,7 @@ class TreeOperations {
 
 	//--------------------------Get Maximum Value-----------------------------
 	public int maxValue(){
-		return maxValue(startnode);
+		return maxValue(starNode);
 	}
 
 	/**
@@ -387,7 +509,7 @@ class TreeOperations {
 
 	// ---------------------------- Contains Key ---------------------------------------
 	public boolean contains(Comparable item) {
-		return contains( item, startnode) ;
+		return contains( item, starNode) ;
 	}
 
 	public boolean contains(Comparable item, Node root) {
@@ -412,7 +534,7 @@ class TreeOperations {
 	//------------------------------ Recursive Contains Key-----------------------------------------
 
 	public boolean reccontains(Comparable item) {
-		return reccontains( item, startnode) ;
+		return reccontains( item, starNode) ;
 	}
 	/**
 	 * IsContains
@@ -442,7 +564,7 @@ class TreeOperations {
 
 	// ---------------Recursive Get Operation----------------------
 	public Comparable recGet(Comparable item ) {
-		return recGet(item , startnode ) ;
+		return recGet(item , starNode ) ;
 	}
 
 	/**
@@ -470,7 +592,7 @@ class TreeOperations {
 	//--------------------------height of Tree-------------------------------
 
 	public void height() {
-		int h = height(startnode);
+		int h = height(starNode);
 		System.out.println("Height of Tree is: " + h);
 	}
 
@@ -479,7 +601,7 @@ class TreeOperations {
 	 * @param root
 	 * @return
 	 */
-	public int height(Node root) {
+	public static int height(Node root) {
 		if (root == null)
 			return 0;
 		else {
@@ -495,10 +617,36 @@ class TreeOperations {
 		}
 	}
 
+	private static int getHeight2(Node root) {
+		Queue<Node> queue = new LinkedList<Node>();
+		int count = 0;
+		queue.offer(root);
+		queue.offer(null);
+		while (!queue.isEmpty()) {
+			Node poppedNode = queue.poll();
+			if (poppedNode != null) {
+				// System.out.print(poppedNode.data + "\t");
+				if (poppedNode.left != null) {
+					queue.offer(poppedNode.left);
+				}
+				if (poppedNode.right != null) {
+					queue.offer(poppedNode.right);
+
+				}
+			} else {
+				count++;
+				if (queue.isEmpty())
+					break;
+				queue.offer(poppedNode);
+			}
+		}
+		return count;
+	}
+	
 
 	// ---------------------- Level Order Traversal -----------------------------
 	public void printLevelOrder() {
-		int h = height(startnode);
+		int h = height(starNode);
 		int i;
 		for (i = 1; i <= h; i++) {
 			int k = h - i;
@@ -507,7 +655,7 @@ class TreeOperations {
 				k--;
 			}
 
-			printGivenLevel(startnode, i);
+			printGivenLevel(starNode, i);
 			System.out.println();
 		}
 	}
@@ -525,6 +673,50 @@ class TreeOperations {
 		printGivenLevel(root.right, level - 1);
 	}
 
+	
+	public static void printLevelNodes(Node root, int level, int currlevel) {
+		if (root == null)
+			return;
+		if (level == currlevel)
+			System.out.print(root.data + "\t");
+		printLevelNodes(root.left, level, currlevel + 1);
+		printLevelNodes(root.right, level, currlevel + 1);
+	}
+	
+
+	public static void levelOrder(Node root) {
+		Queue<Node> queue = new LinkedList<Node>();
+		queue.offer(root);
+		queue.offer(null);
+		while (!queue.isEmpty()) {
+			Node poppedNode = queue.poll();
+			if (poppedNode != null) {
+				System.out.print(poppedNode.data + "\t");
+				if (poppedNode.left != null) {
+					queue.offer(poppedNode.left);
+				}
+				if (poppedNode.right != null) {
+					queue.offer(poppedNode.right);
+
+				}
+			} else {
+				if (queue.isEmpty())
+					break;
+
+				queue.offer(poppedNode);
+				System.out.println();
+			}
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
 	// --------Common Ancestor --------------
 	public Node commonAncestor(Node root, Node n1, Node n2) {
 
@@ -547,7 +739,7 @@ class TreeOperations {
 	// ------------------------kth Smallest Eleent----------------
 	public int KthSmallest( int k){
 		countSmallest=0;
-		KthSmallest(startnode,k);
+		KthSmallest(starNode,k);
 		return countSmallest;
 	}
 
@@ -572,7 +764,7 @@ class TreeOperations {
 
 	public int KthLargest( int k){
 		countlargest=0;
-		KthLargest(startnode,k);
+		KthLargest(starNode,k);
 		return countlargest;
 	}
 
@@ -594,7 +786,7 @@ class TreeOperations {
 
 	// -------------------Size of Tree--------------------------
 	public int size() {
-		return size(startnode);
+		return size(starNode);
 	}
 
 	public int size(Node root) {
@@ -603,11 +795,30 @@ class TreeOperations {
 		else
 			return (size(root.left) + 1 + size(root.right));
 	}
+	
+	private static int getSize2(Node root) {
+		int count = 0;
+		if (root != null) {
+			Queue<Node> queue = new LinkedList<Node>();
+			queue.offer(root);
+			while (!queue.isEmpty()) {
+				Node poppedNode = queue.poll();
+				count++;
+				if (poppedNode.left != null)
+					queue.offer(poppedNode.left);
+
+				if (poppedNode.right != null)
+					queue.offer(poppedNode.right);
+			}
+		}
+		return count;
+	}
+
 
 
 	// ----------------Mirrorring a Tree by creating a copy ----------------------
 	public Node mirror() {
-		return mirror(startnode) ;
+		return mirror(starNode) ;
 	}
 
 	public Node mirror(Node root) {
@@ -624,7 +835,7 @@ class TreeOperations {
 
 	//---------------Check if Binary Search Tree------------------------
 	public boolean isBST() {
-		return( isBST(startnode, Integer.MIN_VALUE, Integer.MAX_VALUE) );
+		return( isBST(starNode, Integer.MIN_VALUE, Integer.MAX_VALUE) );
 	}
 
 	public boolean isBST(Node node, int min, int max) {
@@ -646,6 +857,299 @@ class TreeOperations {
 		// isBST(node.left, min, node.data - 1) && isBST(node.right, node.data+1, max)
 	}
 
+	
+	// -----------------------Deepest Node-----------------------
+	
+	
+	static int max = -9999;
+	static Node temp = null;
+
+	static Node deepesNode(Node root, int curr) {
+		if (root == null)
+			return temp;
+
+		if (curr > max) {
+			max = curr;
+			temp = root;
+		}
+		deepesNode(root.left, curr + 1);
+		deepesNode(root.right, curr + 1);
+		return temp;
+	}
+	
+	//----------------------------Delete Tree---------------------------------
+	public static void deleteTree(Node root) {
+		if (root == null)
+			return;
+		deleteTree(root.left);
+		deleteTree(root.right);
+		root = null;
+	}
+		
+
+	//------------Search A node in the Tree ------------------------
+	
+
+	private static Node search1(int data, Node root) {
+		if (root == null)
+			return null;
+
+		if (data < root.data)
+			return search1(data, root.left);
+		else if (data > root.data)
+			return search1(data, root.right);
+		else
+			return root;
+	}
+
+	private static Node search2(int data, Node root) {
+		Node curr = root;
+		while (curr != null) {
+			if (data < curr.data)
+				curr = curr.left;
+			else if (data > curr.data)
+				curr = curr.right;
+			else
+				break;
+		}
+		return curr;
+	}
+
+	
+	//------------------ Count Leaves in a Tree
+	
+	static int countLeaves(Node root) {
+		int count = 0;
+		if (root != null) {
+			Queue<Node> queue = new LinkedList<Node>();
+			queue.offer(root);
+			while (!queue.isEmpty()) {
+				Node poppedNode = queue.poll();
+				if (poppedNode.left == null && poppedNode.right == null) {
+					count++;
+					continue;
+				}
+				if (poppedNode.left != null)
+					queue.offer(poppedNode.left);
+
+				if (poppedNode.right != null)
+					queue.offer(poppedNode.right);
+			}
+		}
+		return count;
+	}
+
+	// static int count=0;
+	static int countLeaves2(Node root, int count) {
+		if (root == null)
+			return count;
+
+		if (root.left == null && root.right == null)
+			return ++count;
+
+		return countLeaves2(root.left, count) + countLeaves2(root.right, count);
+	}
+
+	
+	//----------------------- Are Trees Isomorphic 
+	
+	static boolean isIsomorphic(Node root1, Node root2) {
+		if (root1 == null && root2 == null)
+			return true;
+
+		if (root1 == null || root2 == null)
+			return false;
+
+		return isIsomorphic(root1.left, root2.left)
+				&& isIsomorphic(root1.right, root2.right);
+	}
+	
+	//--------------  ROOT to leaf paths 
+	
+
+	static void rootToLeafPaths(Node root, String path) {
+		if (root == null)
+			return;
+
+		if (root.left == null && root.right == null)
+			System.out.println(path.toString() + "\t" + root.data);
+
+		rootToLeafPaths(root.left, path + "\t" + root);
+		rootToLeafPaths(root.right, path + "\t" + root);
+	}
+
+	
+	//----------------- Connect Peers in Binary Tree 
+	
+	public static Node connectPeers(Node root) {
+		Queue<Node> queue = new LinkedList<Node>();
+		queue.offer(root);
+		queue.offer(null);
+		while (!queue.isEmpty()) {
+			Node poppedNode = queue.poll();
+			if (poppedNode != null) {
+				poppedNode.peer = queue.peek();
+				if (poppedNode.left != null) {
+					queue.offer(poppedNode.left);
+				}
+				if (poppedNode.right != null) {
+					queue.offer(poppedNode.right);
+				}
+			} else {
+				if (queue.isEmpty())
+					break;
+
+				queue.offer(poppedNode);
+			}
+		}
+		return root;
+	}
+
+	public static void displayPeerConnection(Node root) {
+		Node temp = root;
+		while (temp != null) {
+			System.out.print(temp.data + "--->");
+			temp = temp.peer;
+		}
+		System.out.println("null");
+
+		if (root.left == null && root.right == null)
+			return;
+
+		if (root.left != null)
+			displayPeerConnection(root.left);
+		else
+			displayPeerConnection(root.right);
+	}
+	
+	//--------------------Zig Zag Traversal -----------
+	
+	public static void zigZagTraversal(Node root) {
+		int height = height(root);
+		boolean reverseOrder = false;
+		for (int level = 0; level < height; level++) {
+			zigZag1(root, 0, level, reverseOrder);
+			System.out.println();
+			reverseOrder = !reverseOrder;
+		}
+	}
+
+	public static void zigZag1(Node root, int currLevel, int level,
+			boolean reverseOrder) {
+		if (root == null)
+			return;
+
+		if (level == currLevel) {
+			System.out.print(root.data + "\t");
+			return;
+		}
+
+		if (!reverseOrder)
+			zigZag1(root.left, currLevel + 1, level, reverseOrder);
+
+		zigZag1(root.right, currLevel + 1, level, reverseOrder);
+
+		if (reverseOrder)
+			zigZag1(root.left, currLevel + 1, level, reverseOrder);
+	}
+
+	public static void zigZagTraversal1(Node root) {
+		Stack<Node> evenStack = new Stack<Node>();
+		Stack<Node> oddStack = new Stack<Node>();
+		evenStack.push(root);
+		
+		while (!evenStack.isEmpty() || !oddStack.isEmpty()) {
+			while (!evenStack.isEmpty()) {
+				Node item = evenStack.pop();
+				System.out.print(item.data + "\t");
+				if (item.left != null)
+					oddStack.push(item.left);
+				if (item.right != null)
+					oddStack.push(item.right);
+			}
+			System.out.println();
+			while (!oddStack.isEmpty()) {
+				Node item = oddStack.pop();
+				System.out.print(item.data + "\t");
+				if (item.right != null)
+					evenStack.push(item.right);
+				if (item.left != null)
+					evenStack.push(item.left);
+
+			}
+			System.out.println();
+		}
+
+	}
+	
+	public static boolean hasPathSum(Node root, int sum, String path) {
+		if (root == null) {
+			if (sum == 0)
+				System.out.println(path);
+			return sum == 0;
+		}
+		return hasPathSum(root.left, sum - root.data, path + "-->" + root.data)
+				|| hasPathSum(root.right, sum - root.data, path + "-->"
+						+ root.data);
+	}
+
+	public Node LCA(int n1, int n2, Node root) {
+		if (root == null)
+			return null;
+
+		if (root.data == n1 || root.data == n2)
+			return root;
+
+		Node left = LCA(n1, n2, root.left);
+		Node right = LCA(n1, n2, root.right);
+
+		if (left != null && right != null)
+			return root;
+
+		return left != null ? left : right;
+	}
+
+	public static Node successor(Node root, Node node, Node parent) {
+		if (root == null)
+			return null;
+
+		if (root.data > node.data) {
+			parent = successor(root.left, node, root);
+		} else if (root.data < node.data) {
+			parent = successor(root.right, node, parent);
+		} else {
+			if (root.right != null) {
+				return nextMinValue(root);
+			} else {
+				return parent;
+			}
+		}
+		return parent;
+	}
+	
+	public static Node nextMinValue(Node root) {
+		root = root.right;
+		while (root.left != null) {
+			root = root.left;
+		}
+		return root;
+	}
+	
+	public static void verticalTraversal(Node root, int col,
+			Map<Integer, ArrayList<Node>> hash) {
+		if (root == null)
+			return;
+		
+		ArrayList<Node> list  = hash.get(col);
+		if(list==null)
+			list= new ArrayList<Node>();
+		
+		list.add(root);
+		hash.put(col, list);
+		
+		verticalTraversal(root.left, col-1, hash);
+		verticalTraversal(root.right, col+1, hash);
+	}
 
 	public static void main(String[] args) {
 		TreeOperations obj = new TreeOperations() ;
@@ -665,7 +1169,7 @@ class TreeOperations {
 		obj.insert(6);
 		obj.insert(7);
 
-			obj.display();
+		obj.display();
 		//System.out.println(obj.getPredecessor(15));
 		// TRy other operations as well ;)
 	}
