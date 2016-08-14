@@ -85,6 +85,43 @@ public class GraphOperations {
 			}
 		}
 	}
+	
+	Integer isConnected(Integer startNode , Integer dest) {
+
+		Queue<Integer> bfsQueue = new LinkedList<Integer>();
+
+		// stating node visit status set to true
+		vistedStatus.put(startNode, true);
+
+		// start node added to Queue
+		bfsQueue.add(startNode);
+
+		while(!bfsQueue.isEmpty())
+		{
+			// Node poped from Queue
+			int node=bfsQueue.poll();
+			if(node == dest)
+				return 1;
+
+			// all connected node list of a give node
+			List<Integer> list=adjList.get(node);
+
+			int size=list.size();
+			for(int i=0;i <size; ++i)
+			{
+				int adjNode=list.get(i);
+				boolean isVisited=vistedStatus.get(adjNode);
+				if(!isVisited)
+				{
+					vistedStatus.put(adjNode, true);
+					bfsQueue.add(adjNode);
+				}
+			}
+		}
+	
+		return 0;
+		
+	}
 
 	public void dfsUtil(int vertex){
 		List <Integer> list = adjList.get(vertex) ;
@@ -194,7 +231,7 @@ public class GraphOperations {
 		return adjList.get(vertex);
 	}
 	
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		GraphOperations g=new GraphOperations(4);
 
 		// use for bfs and dfs
@@ -208,5 +245,22 @@ public class GraphOperations {
 		//g.dfsIterative(0);
 		//g.dfs();
 
+	}*/
+	
+	public static void main(String[] args) {
+		testCase1();
+	}
+	
+	
+	static void testCase1(){
+		GraphOperations g=new GraphOperations(6);
+
+		// use for bfs and dfs
+		g.addEdge(0, 1);
+		g.addEdge(1, 2);
+		g.addEdge(3, 4);
+		g.addEdge(4, 5);
+
+		g.bfs(0);
 	}
 }

@@ -1,17 +1,15 @@
 package blog.maths.power;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /* Function to calculate x raised to the power y */
 public class PowerCalulation {
 
-/*	public static void main(String[] args) {
+	public static void main(String[] args) {
 
 		System.out.println(cal(2, 3));
 		System.out.println(calulate(2, 3));
-	}*/
+		System.out.println(power(3,5));
+	}
 
 
 	public static int calulate(int base, int power)
@@ -20,6 +18,23 @@ public class PowerCalulation {
 			return 1;
 		else
 			return base * calulate(base,power-1);
+	}
+	
+	static int power(int base, int exp)
+	{
+		int result = 1;
+		while(exp > 0)
+		{
+			if(exp%2 == 1)
+			{
+				result *= base; 
+				exp --;
+			}
+				base = base*base;
+				exp = exp /2;
+		}
+		return result;
+		
 	}
 	
 	public static int cal(int base,int power)

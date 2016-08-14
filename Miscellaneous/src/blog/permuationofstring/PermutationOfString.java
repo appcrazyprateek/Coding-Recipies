@@ -50,7 +50,7 @@ package blog.permuationofstring;
 	}
 	
 	public static void main(String[] a)	{
-		String text="ABCD";
+		String text="ABC";
 		PermutationOfString obj=new PermutationOfString();
 		obj.printPermutations(text) ;
 	}

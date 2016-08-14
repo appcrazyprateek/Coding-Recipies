@@ -3,6 +3,7 @@
  */
 package blog.slidingwindow.minima;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -28,8 +29,8 @@ public class SlidingWindowMaxima {
 	 * @param w : window size
 	 * @return: max value in contiguous window sizes
 	 */
-	public static int[] findMixima(int[] arr, int w) {
-		int[] result = new int[arr.length -2];
+	public static ArrayList<Integer> findMixima(int[] arr, int w) {
+		Integer[] result = new Integer[arr.length];
 		int size = arr.length;
 
 		// Dequeue will hold the indexes of the input arr
@@ -62,14 +63,15 @@ public class SlidingWindowMaxima {
 		}
 		result[size - w] = arr[deq.peekFirst()];
 
-		return result;
+		return (ArrayList<Integer>) Arrays.asList(result);
 	}
 
 	public static void main(String[] args) {
-		int[] arr= {6,4,2,3,5,7,1,8};
-		int windowSize=3;
+		int[] arr= {1};
+		int windowSize=1;
 		System.out.println("Input: "+ Arrays.toString(arr));
-		System.out.println("Output:"+ Arrays.toString(findMixima(arr, windowSize)));
+	//	System.out.println("Output:"+ Arrays.toString(findMixima(arr, windowSize)));
+		System.out.println(findMixima(arr, windowSize));
 		
 	}
 }

@@ -35,7 +35,6 @@ public class QuickSort
 		int temp=arr[i];
 		arr[i]=arr[j];
 		arr[j]=temp;
-
 	}
 
 	public static void main(String[] args) {
@@ -44,5 +43,9 @@ public class QuickSort
 			System.out.println(arr[i]);
 	}
 
+	
+	
+	
+	
 
 }

@@ -4,6 +4,7 @@ package blog.linkedlist.misc;
  * @author PRATEEK
  */
 public class MergeSort {
+	
 	private static Node sort(Node head) {
 		if (head == null || head.next == null)
 			return head;
@@ -51,15 +52,11 @@ public class MergeSort {
 				h1=h1.next;
 			}
 			if(mergedHead==null)
-			{
 				mergedHead=temp;
-				mergedtail=temp;
-			}
 			else
-			{
 				mergedtail.next=temp;
-				mergedtail = temp;
-			}
+			
+			mergedtail=temp;
 		}
 		
 		if(h1==null)

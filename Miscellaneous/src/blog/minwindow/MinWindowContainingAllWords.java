@@ -85,8 +85,8 @@ public class MinWindowContainingAllWords {
 
 	public static void main(String[] args) {
 
-		String str = "Shopping with xyz.com is an awesome experience";
-		String pat = "awesome with xyz.com";
+		String str = "olarkbsrooksrykacostrk";//"Shopping with xyz.com is an awesome experience";
+		String pat = "rocks";//"awesome with xyz.com";
 		minWindow(str, pat);
 		//System.out.println("Start :" + startWord + "   End : " + endWord);
 

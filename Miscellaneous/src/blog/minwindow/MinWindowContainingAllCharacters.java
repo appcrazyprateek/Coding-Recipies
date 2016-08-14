@@ -1,0 +1,102 @@
+package blog.minwindow;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Minimum Window in which all the words are found
+ * @author PRATEEK
+ */
+public class MinWindowContainingAllCharacters {
+
+	private static int minWindow = 9999; // length of minimum window
+	private static int startIndex = 0; // start position
+	private static int endIndex = 0; // end position
+	/**
+	 * Sub-routine to minumum window in which all words of pattern are found in
+	 * the given string
+	 * @param str : input String
+	 * @param pat : pattern
+	 */
+	public static void minWindow(String str, String pat)
+	{
+
+		// words to be found
+		Map<Character, Integer> toFind = new HashMap<Character, Integer>(); 
+		// the set	of  words  which are found
+		Map<Character, Integer> found = new HashMap<Character, Integer>(); 
+
+		int foundCount = 0;
+		// left pointer of the window, which is moved when all required wrds are
+		// found,
+		// and is moved until any word from required word is found
+		int tempStart = 0;
+
+		// Tokenising Text
+		char[] chars = str.toCharArray();
+		int sLen = chars.length;
+
+		// Tokenising Pattern
+		char[] patTokens = pat.toCharArray();
+		int pLen = patTokens.length;
+
+		// filling the 'toFind' map
+		for (char val : patTokens)
+			toFind.put(val, toFind.get(val) == null ? 1 : toFind.get(val) + 1);
+
+		// traversing over text length
+		for (int index = 0; index < sLen; index++)
+		{
+			Character currChar = chars[index];
+
+			if (!toFind.containsKey(currChar))
+				continue;
+
+			found.put(currChar, found.get(currChar) == null ? 1 : found.get(currChar) + 1);
+
+			if (toFind.get(currChar) >= found.get(currChar))
+				foundCount++;
+
+			if (foundCount == pLen) 
+			{
+				// reduce window size until conditions are violated
+				currChar = chars[tempStart];
+				while (!toFind.containsKey(currChar)
+						|| toFind.get(currChar) < found.get(currChar)) 
+				{
+					// Discard excess count of the given word
+					if (toFind.containsKey(currChar))
+						found.put(currChar, found.get(currChar) - 1);
+
+					// get next word, to check if it can be discarded
+					currChar = chars[++tempStart];
+				}
+
+				// Updating Min Window
+				if (minWindow > index - tempStart + 1)
+				{
+					minWindow = index - tempStart + 1;
+					startIndex = tempStart;
+					endIndex = index;
+				}
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+
+		String str = "olarkbsrooksrykacostrk";//"Shopping with xyz.com is an awesome experience";
+		String pat = "rocks";//"awesome with xyz.com";
+		minWindow(str, pat);
+		//System.out.println("Start :" + startWord + "   End : " + endWord);
+
+		System.out.print("Window :     ");
+		// Tokenising Text
+		char[] chars = str.toCharArray();
+		for(int i=startIndex;i<=endIndex;i++)
+			System.err.print(chars[i]+"  ");
+		System.err.println();
+		System.err.println("Size : "+ (endIndex - startIndex + 1));
+
+	}
+}

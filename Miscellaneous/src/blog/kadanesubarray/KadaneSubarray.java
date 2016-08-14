@@ -1,5 +1,8 @@
 package blog.kadanesubarray;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class KadaneSubarray {
 
 	public static void main(String[] args) {
@@ -12,6 +15,8 @@ public class KadaneSubarray {
 	
 	public int kadane(int arr[])
 	{
+		
+		Map m = new HashMap();
 		int currentSum=arr[0];
 		int maxSum = Integer.MIN_VALUE;
 		

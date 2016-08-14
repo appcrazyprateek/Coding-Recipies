@@ -46,8 +46,8 @@ public class LongestIncreasingSubsequence {
 			}
 		}
 
-		printSequence(sol, arr);
-		System.out.println("Sequence length : " + MAX_LIS);
+		//printSequence(sol, arr);
+		//System.out.println("Sequence length : " + MAX_LIS);
 		return MAX_LIS ;
 	}
 
@@ -61,7 +61,9 @@ public class LongestIncreasingSubsequence {
 	}
 
 	public static void main(String[] args) {
-		int arr[] = {3, 2 , 7 , 3 , 4 , 9 , 8 , 12 , 5};
-		lis(arr);
+		//int arr[] = {3, 2 , 7 , 3 , 4 , 9 , 8 , 12 , 5};
+		int arr[] = {6,4,1,2};
+		int val = lis(arr);
+		System.out.println(val);
 	}
 }

@@ -5,7 +5,7 @@ import blog.node.Node;
 
 
 public class Diameter {
-
+	
 	public int diameter(Node root) {
 		
 		if(root==null)

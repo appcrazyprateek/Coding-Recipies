@@ -7,6 +7,7 @@ import blog.node.Node;
  */
 public class PruneSumPath {
 
+	
 	public static boolean prunePath(Node root, int givenSum , int currSum)
 	{
 		if(root==null)	{

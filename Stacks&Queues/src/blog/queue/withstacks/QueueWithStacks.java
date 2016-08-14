@@ -1,48 +1,44 @@
 package blog.queue.withstacks;
 import java.util.Stack;
 /**
- * Testing Versioning.. 
  * Implement Queue operations using two stacks..
- * @author Prateek
+ * @author Parul
  */
 public class QueueWithStacks  {
 
-	private Stack<Integer> stack1 = new Stack<Integer>(); // for enqeue operations
-	private Stack<Integer> stack2 = new Stack<Integer>();
+	private Stack<Integer> eStack = new Stack<Integer>(); // for enqeue operations
+	private Stack<Integer> dStack = new Stack<Integer>(); // for deque operations
 
 	/**
 	 * Enqueue Operation
-	 * @throws InterruptedException : to given delay between operations so that it prints on console
 	 */
-	public void enqueue(Integer item) throws InterruptedException {
-		Thread.sleep(10);
+	public void enqueue(Integer item)  {
 		System.out.println("Enqueue: " + item);
-		stack1.push(item);
+		eStack.push(item);
 	}
 
 	/**
 	 * Dequeue Operation
 	 * @return FIFO element
 	 */
-	public Integer dequeue() throws InterruptedException {
-		Thread.sleep(10);
-		if(stack2.isEmpty())
+	public Integer dequeue() {
+		if(dStack.isEmpty())
 		{
-			if(!stack1.isEmpty())
+			if(!eStack.isEmpty())
 			{
-				while(!stack1.isEmpty())
+				while(!eStack.isEmpty())
 				{
-					stack2.push(stack1.pop());
+					dStack.push(eStack.pop());
 				}
 			}
 			else
 			{
-				System.err.println("Stack is Empty");
+				System.out.println("Queue is Empty");
 				return -1;
 			}
 		}
-		int item=stack2.pop();
-		System.err.println("Dequeue: " + item);
+		int item=dStack.pop();
+		System.out.println("Dequeue: " + item);
 		return item;
 	}
 

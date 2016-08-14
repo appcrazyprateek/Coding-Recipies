@@ -1,7 +1,10 @@
 package blog.linkedlist.misc;
 
-
-
+/**
+ * Detect and Remove loop from a linkedlist containing cycle
+ * @author prathore2
+ *
+ */
 
 public class DetectAndRemoveLoop {
 

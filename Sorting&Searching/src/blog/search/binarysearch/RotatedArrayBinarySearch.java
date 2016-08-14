@@ -9,38 +9,41 @@ public class RotatedArrayBinarySearch {
 		for (int i=0; i<a.length; i++)
 			System.out.println(a[i]);	
 
-		System.out.println("Found " + key + " at " + binarySearch(a, key));
+		//System.out.println("Found " + key + " at " + binarySearch(a, key));
 	}
 
-	public static int binarySearch(int[] a, int key) {
+	 int search(int[] arr, int data) {
+		if(arr== null)
+			return -1;
+		
 		int low = 0;
-		int high = a.length -1;
+		int high = arr.length -1;
 		int mid = 0;;
-		while (low<=high) {
+		while (low<=high) 
+		{
 			mid = (low+high) /2;
 
-			if(a[mid] == key){
+			if(arr[mid] == data)
 				return mid;
-			}
-
-			if (a[mid] < key){
-				if((a[high]>key)){
+			
+			if (arr[mid] < data)
+			{
+				if((arr[high]>data))
 					low = mid + 1;
-				}else if(a[high]<key){
+				else if(arr[high]<data)
 					high = mid - 1;
-				}else{
+				else
 					return high;
-				}
-			}else if(a[mid] > key){
-				if(a[low]<key){
-					high = mid-1;
-				}else if(a[low]>key){
-					low = mid + 1;
-				}else{
-					return low;
-				}
 			}
-
+			else if(arr[mid] > data)
+			{
+				if(arr[low]<data)
+					high = mid-1;
+				else if(arr[low]>data)
+					low = mid + 1;
+				else
+					return low;
+			}
 		}
 		return -1;
 	}

@@ -7,6 +7,7 @@ package blog.linkedlist.misc;
 public class LinkListPallindrome {
 	
 	public boolean checkPallindrome(Node head){
+		String b;
 		Node n =isPallindrome(head,head);
 		if(n==null)
 			return false;

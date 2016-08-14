@@ -1,5 +1,7 @@
 package blog.linkedlist.misc;
 
+import sun.rmi.runtime.NewThreadAction;
+
 /**
  * 
  * @author r.prateek
@@ -91,6 +93,54 @@ public class LinkListOperations {
 		}
 		return isDeleted;
 	}
+	
+	  
+	Node sort(Node head)
+	{
+	    if(head == null || head.next == null)
+	        return head ;
+
+	    Node newHead = head;
+	    Node slow = head;
+	    Node fast = head;
+
+	    while(slow!=null || slow.next.data ==0)
+	    {
+	    	slow= slow.next;
+	    }
+	    
+	    if(slow == null)
+	    	return newHead;
+	    else
+	    {
+	    	newHead = slow;
+	    }
+	    
+	    while(slow!= null || fast.next!=null)
+	    {
+	        if(slow.next==null)
+	          return newHead;
+	           
+	        if(slow.next.data == 0)
+	        {
+	           slow = slow.next;
+	           continue;
+	        }
+	        else
+	        {
+	            fast = slow;
+	        }
+	        if(fast.next.data == 1)
+	        {
+	           fast = fast.next;
+	        }
+	        else
+	        {
+	           //changeLinks(slow,fast,newHead);
+	        }   
+	    }   
+		return newHead;   
+	}   
 
 	//---------------------reverse List without Recursion---------------------
 	public boolean reverseList()
