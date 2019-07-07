@@ -31,8 +31,8 @@ public class KnapSack1 {
 			return knapSack(currentCapacity, item+1);
 		
 		else
-		{
-//System.out.println(1);
+		{ 
+            //System.out.println(1);
 			int choice1 = knapSack(currentCapacity, item+1) ; // current item not chosen
 			int choice2 = values[item] + knapSack(currentCapacity - weights[item], item+1);  // item chosen and knapsack called for other object with decreased remaining capacity 
 			return max(choice1 , choice2);
