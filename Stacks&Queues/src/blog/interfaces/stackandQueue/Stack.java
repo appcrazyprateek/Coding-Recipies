@@ -18,7 +18,8 @@ public class Stack implements IStack {
 	@Override
 	public void push(int num) throws Exception {
 		if(isFull()) {
-			throw new Exception("Stack overflow exception");
+			//throw new Exception("Stack overflow exception");
+			doubleCapacity();
 		}
 		arr[++top] = num;
 		System.out.println("Adding Item :" + num);
@@ -33,6 +34,13 @@ public class Stack implements IStack {
 		return arr[top--];
 	}
 
+	private void doubleCapacity() {
+		int capacity = arr.length * 2;
+		int[] cloneArray = new int[capacity];
+		System.arraycopy(arr, 0, cloneArray, 0, arr.length);
+		arr = cloneArray;
+	}
+	
 	@Override
 	public boolean isEmpty() {
 		return top == -1 ? true : false;
