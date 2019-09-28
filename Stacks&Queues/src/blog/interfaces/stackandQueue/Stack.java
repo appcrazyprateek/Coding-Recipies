@@ -2,18 +2,16 @@ package blog.interfaces.stackandQueue;
 
 public class Stack implements IStack {
 	
-	private int size;
 	private int[] arr;
 	private int top = -1;
 	
-	private static final int DEFAULT_CAPACITY = 10; 
+	private static final int DEFAULT_CAPACITY = 5; 
 	
 	public Stack() {
 		this.arr = new int[DEFAULT_CAPACITY];
 	}
 	
 	public Stack(int size) {
-		this.size = size;
 		this.arr = new int[size];
 	}
 	
@@ -29,7 +27,7 @@ public class Stack implements IStack {
 	@Override
 	public int pop() throws Exception {
 		if(isEmpty()) {
-			throw new Exception("Stack is empty");
+			throw new Exception("Stack is Underflow");
 		}
 		System.out.println("Removed Item : " + arr[top]);
 		return arr[top--];
@@ -42,7 +40,6 @@ public class Stack implements IStack {
 
 	@Override
 	public int peek() {
-		//System.out.println("Item on top of the stack is " + arr[top]);
 		return arr[top];
 	}
 	
