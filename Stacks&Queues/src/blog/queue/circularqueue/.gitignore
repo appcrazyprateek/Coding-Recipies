@@ -1,1 +1,5 @@
-/CircularQueue.java
+/bin/
+.classpath
+.DS_Store
+.project
+.settings/
