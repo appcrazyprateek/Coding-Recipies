@@ -29,7 +29,7 @@ public class KrushkalMST extends WeightedUndirectedGraphAPI{
 			int p1=uf.Find(edge.src);	 //parent1 of cluster having src
 			int p2=uf.Find(edge.dest);	//parent2 of cluster having dest
 
-			if(p1!=p2){
+			if(p1!=p2){ //this prevents cycle
 				mMSTedgeList.add(edge);
 				uf.Union(p1, p2);
 			}

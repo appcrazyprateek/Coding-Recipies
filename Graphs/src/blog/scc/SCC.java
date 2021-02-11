@@ -61,7 +61,6 @@ public class SCC extends Graph{
 		
 		
 		
-		
 		g.compute(g);
 	}
 
@@ -89,6 +88,7 @@ public class SCC extends Graph{
 			}
 		}
 		
+		//transpose(g);
 		//Reset Visit Status
 		resetVisitStatus();
 		

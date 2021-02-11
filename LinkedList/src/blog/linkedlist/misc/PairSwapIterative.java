@@ -40,9 +40,23 @@ public class PairSwapIterative {
 		root.next.next.next.next =new Node(5) ;
 		//root.next.next.next.next.next =new Node(6) ;
 		
-		Node head=obj.pairSwap(root);
+		//Node head=obj.pairSwap(root);
+		Node head=obj.pairSwapRecursive(root);
 		obj.display(head);
 	}
+	
+	public Node pairSwapRecursive(Node head){
+		Node curr=head;
+		Node front=null;
+ 
+		if(curr!=null && curr.next!=null){
+			front=curr.next;
+			curr.next = pairSwap(front.next);
+			front.next=curr;
+		}
+		return (front!=null) ? front : curr;
+	}
+ 
 	
 	/**
 	 * Display the nodes of the linked list

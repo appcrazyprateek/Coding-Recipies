@@ -6,8 +6,10 @@ public class KnuthMorrisPratt {
 		int i=0, j=-1;
 		next[0]=-1;
 		while (i<pattern.length()-1) {
+			//This piece helps in case of mismatch, it lets j move backwards and continue
 			while (j>=0 && pattern.charAt(i)!=pattern.charAt(j))
 				j = next[j];
+			
 			i++; 
 			j++;
 			next[i] = j;
@@ -22,7 +24,8 @@ public class KnuthMorrisPratt {
 			while (j>=0 && text.charAt(i)!=pattern.charAt(j))
 				j = next[j];
 			i++; j++;
-			if (j==pattern.length()) return i-pattern.length();
+			if (j==pattern.length()) 
+				return i-pattern.length();
 		}
 		return -1;
 	}
@@ -32,7 +35,8 @@ public class KnuthMorrisPratt {
 		String text = "Lorem ipppsuuum dolor sit ipppsuuum amet";
 		//String pattern = "ipppsuuum";
 		
-		String pattern = "ipppsuuum";
+		//String pattern = "ipppsuuum";
+		String pattern = "ababa";
 		int first_occur_position = k.kmp(text, pattern);
 		System.out.println("The text '" + pattern + "' is first found on the " + first_occur_position + " position.");
 	}

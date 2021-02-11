@@ -105,12 +105,12 @@ public class ReverseInChunks {
 		head.next.next.next.next= new Node(5);
 		head.next.next.next.next.next= new Node(6);
 		head.next.next.next.next.next.next= new Node(7);
-		//head.next.next.next.next.next.next.next= new Node(8);
+		head.next.next.next.next.next.next.next= new Node(8);
 
 		ReverseInChunks obj=new ReverseInChunks();
 		obj.displayList(head);
-		Node r=obj.reverseInchunks(head, 3);
-		//Node r=obj.reverseChunkIterative(head, 3);
+		//Node r=obj.reverseInchunks(head, 3);
+		Node r=obj.reverseChunkIterative(head, 3);
 		obj.displayList(r);
 
 	}

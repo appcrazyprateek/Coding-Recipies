@@ -1,9 +1,25 @@
 package blog.trie.rway;
 
-public class Trie{
+class TrieNode {
+	public static final int DEFAULT_SIZE = 26;
+	public boolean isWord = false;
+	public TrieNode[] children = new TrieNode[DEFAULT_SIZE];
+}
+
+public class Trie {
 	
-	public void put(String key,String val){
+	public TrieNode root = null;
+	
+	public void insert(String key, String val) {
 		
 	}
 	
+	public String search(String key) {
+		return key;
+		
+	}
+	
+	public static void main(String[] args) {
+
+	}
 }

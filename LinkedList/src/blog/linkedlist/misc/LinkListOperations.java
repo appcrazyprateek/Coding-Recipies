@@ -1,7 +1,5 @@
 package blog.linkedlist.misc;
 
-import sun.rmi.runtime.NewThreadAction;
-
 /**
  * 
  * @author r.prateek
@@ -176,7 +174,7 @@ public class LinkListOperations {
 			return head;
 
 	    result = reverse(head.next);
-
+	    
 	    head.next.next = head;
 
 	    head.next = null;

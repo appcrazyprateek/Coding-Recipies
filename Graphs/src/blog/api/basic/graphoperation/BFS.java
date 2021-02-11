@@ -86,12 +86,10 @@ public class BFS {
 			// all connected node list of a give node
 			List<Integer> list=adjList.get(node);
 
-			int size=list.size();
-			System.out.print("Connected Nodes are : ");
-			for(int i=0;i <size; ++i)
+			//System.out.print("Connected Nodes are : ");
+			for(Integer adjNode : list)
 			{
-				int adjNode=list.get(i);
-				System.out.print(adjNode +"   ");
+				//System.out.print(adjNode +"   ");
 				boolean isVisited=vistedStatus.get(adjNode);
 				if(!isVisited)
 				{
@@ -99,7 +97,7 @@ public class BFS {
 					bfsQueue.add(adjNode);
 				}
 			}
-			System.out.println("\n===================");
+			//System.out.println("\n===================");
 		}
 	}
 	
@@ -107,11 +105,22 @@ public class BFS {
 		BFS g=new BFS(6);
 
 		// use for bfs and dfs
-		g.addEdge(0, 1);
+	/*	g.addEdge(0, 1);
 		g.addEdge(0, 2);
 		g.addEdge(1, 2);
 		g.addEdge(2, 3);
-		g.addEdge(1, 3);
+		g.addEdge(1, 3);*/
+		
+		g.addEdge(0, 4);
+		g.addEdge(0, 1);
+		g.addEdge(0, 3);
+		
+		g.addEdge(4, 5);
+		g.addEdge(4, 6);
+		
+		g.addEdge(2, 3);
+		g.addEdge(1, 9);
+		
 
 		g.bfs(0);
 	}

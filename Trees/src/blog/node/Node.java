@@ -1,6 +1,7 @@
 package blog.node;
 
 public class Node implements Comparable<Node> {
+
 	public Node left;
 	public int data;
 	public Node right;

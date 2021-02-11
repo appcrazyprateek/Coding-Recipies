@@ -17,12 +17,14 @@ class Interval{
 }
 
 /**
- * @author prathore2
+ * 
+ * @author rpratee
  *
  */
 public class MergeOverLappingIntervals {
 
 
+	
 	class IntervalCompartor implements Comparator<Interval> {
 		@Override
 		public int compare(Interval o1, Interval o2) {
@@ -46,7 +48,9 @@ public class MergeOverLappingIntervals {
 		obj.mergeOverLappingIntervals(intervals);
 	}
 	
-	
+	/*
+	 * Merging the interval
+	 */
 	List<Interval> mergeOverLappingIntervals(List<Interval> intervals){
 	
 		List<Interval> result  = new ArrayList<Interval>();

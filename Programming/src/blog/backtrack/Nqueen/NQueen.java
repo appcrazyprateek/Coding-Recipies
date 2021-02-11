@@ -49,6 +49,7 @@ public  class NQueen {
 			if(isValidPlacement(chess, givenRow ,  currentCol) == true)
 			{
 				sol[givenRow] = currentCol ;
+				givenRow ++;
 
  				if(givenRow == size - 1) // this was the last row , print soln
 					printSolution(sol);
@@ -57,6 +58,7 @@ public  class NQueen {
 				{
 					int nextRow=givenRow + 1 ;
 					solveNQueen(chess, nextRow, size) ;
+					//Mistake 
 				}
 			}
 		}

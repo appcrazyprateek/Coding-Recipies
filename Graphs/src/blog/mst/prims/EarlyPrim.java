@@ -14,7 +14,7 @@ import blog.api.misc.Vertex;
 public class EarlyPrim extends WeightedUndirectedGraphAPI {
 
 	public static final int P_INFINITY =  99999;
-	public Map<Integer,Integer> distTo= new HashMap<Integer,Integer>();
+	public Map<Integer,Integer> distTo = new HashMap<Integer,Integer>();
 	public Map<Integer,UndirectedEdge> edgeTo = new HashMap<Integer,UndirectedEdge>();
 	public Queue<Vertex> pq ;
 

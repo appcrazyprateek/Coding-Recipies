@@ -17,7 +17,6 @@ class TreeOperations {
 	public Node starNode;
 
 	// ---------------------------------------- Insert Node in Tree
-
 	// Using recursion
 	public void recinsert(Node root, int val) {
 		if (val < root.data)	    {
@@ -56,7 +55,7 @@ class TreeOperations {
 				parent = child;
 
 				// Move left
-				if (newNode.data < child.data) { // Move left
+				if (newNode.data < child.data) {
 					child = child.left;
 					if (child == null) {
 						parent.left = newNode;
@@ -89,7 +88,8 @@ class TreeOperations {
 				else
 					parent.right = root;
 			}
-		} else if (root.data > val)
+		}
+		else if (root.data > val)
 			insert2(root.left, root, val, true);
 		else
 			insert2(root.right, root, val, false);
@@ -292,19 +292,20 @@ class TreeOperations {
 			curr.right = null;
 		} else // 3. Both the Children present
 		{
-			Node child = curr.right;
+			Node successor = curr.right;
 			parent = null;
 
-			while (child.left != null) {
-				parent = child;
-				child = child.left;
+			//find successor
+			while (successor.left != null) {
+				parent = successor;
+				successor = successor.left;
 			}
 
-			curr.data = child.data;
+			curr.data = successor.data;
 			if (parent == null) {
-				curr.right = child.right;
+				curr.right = successor.right;
 			} else {
-				parent.left = child.right;
+				parent.left = successor.right;
 			}
 		}
 		return true;
@@ -688,15 +689,17 @@ class TreeOperations {
 		Queue<Node> queue = new LinkedList<Node>();
 		queue.offer(root);
 		queue.offer(null);
+		
+		
 		while (!queue.isEmpty()) {
 			Node poppedNode = queue.poll();
 			if (poppedNode != null) {
 				System.out.print(poppedNode.data + "\t");
 				if (poppedNode.left != null) {
-					queue.offer(poppedNode.left);
+					queue.offer(poppedNode.left); //push left child
 				}
 				if (poppedNode.right != null) {
-					queue.offer(poppedNode.right);
+					queue.offer(poppedNode.right); //push right child
 
 				}
 			} else {

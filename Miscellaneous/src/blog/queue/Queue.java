@@ -1,6 +1,7 @@
 package blog.queue;
 
 import java.util.Arrays;
+import java.util.PriorityQueue;
 
 /**
  * Queue Implementation
@@ -81,6 +82,7 @@ public class Queue {
 	 * Display elements in the queue
 	 */
 	public void display() {
+		String s ;
 		if (isEmpty()) {
 			System.out.println("Queue is Empty");
 		}

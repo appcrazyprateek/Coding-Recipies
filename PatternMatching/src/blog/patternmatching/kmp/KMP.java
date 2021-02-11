@@ -28,10 +28,12 @@ public class KMP {
 				table[i++] = 0;
 				
 		}
-		System.out.println(Arrays.toString(table));
+		System.out.println("Pattern Processing Table : " + Arrays.toString(table));
 		return table;
 	}
 
+	
+	
 	/**
 	 * KMP Sub-routine 
 	 * @param text: input text
@@ -41,32 +43,38 @@ public class KMP {
 	public static int kmp(String text, String pat) {
 		int patLen = pat.length();
 		int textLen = text.length();
-
-		int i = 0, j = 0;
+		String a;
+		int i = 0, j = -1;
 		int[] table = patternProcessing(pat);
 
 		int count =0;
 		while (i < textLen) 
 		{
 			count++;
-			if (text.charAt(i) == pat.charAt(j)) 
+			if (text.charAt(i) == pat.charAt(j+1)) 
 			{
-				if (j == patLen-1)
+				if (j+1 == patLen-1)
 				{
 					
-					System.out.println("Found : " + (i -j));
+					System.out.println("Found : -->" + (i -j));
 					i++;
-					//return i - j;
+					return i - j;
 				}
 					
-				else 
-				   {	i++;j++; }
+				else {
+					i++;
+					j++;
+				}
 
-			}
+			} 
 			else if(j>0)
-				j = table[j-1];
+				j = table[j];
 			else
+			{
+				j = -1;
 				i++;
+			}
+				 
 				
 		}
 		//System.out.println("Count :" +count);
@@ -75,8 +83,12 @@ public class KMP {
 	}
 	
 	public static void main(String[] args) {
-		String text = "abcacabacaaaabcccbaa";
-		String pat = "ababa";
+		//String text = "ababaabcbaababa";
+		//String pat = "ababa";
+
+		String text = "ABABCABCABABABD";
+		String pat = "ABABD";
+
 		
 		int index= kmp(text,pat);
 		System.out.println("found at " + index);

@@ -1,6 +1,8 @@
 package blog.bt.treeoperations;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -288,6 +290,53 @@ public class TreeOperations {
 		}
 	}
 	
+	/**
+	 * Level Order Traversal Recursive Subroutine
+	 * @param root
+	 */
+	public void levelOrderRecursive(Node root) {
+		int h = height(root);
+		for(int i=1;i<=h;i++) {
+			printNodesAtLevel(root, i);
+		}
+	}
+	
+	/**
+	 * Print Nodes at a specific level
+	 */
+	public void printNodesAtLevel(Node root, int level) {
+		if(root == null)
+			return;
+		
+		if(level == 1)
+			System.out.println(root.data + "");
+		
+		else if(level > 1) {
+			printNodesAtLevel(root.left, level - 1);
+			printNodesAtLevel(root.right, level - 1);	
+		}
+	}
+	
+	/**
+	 * Calculate Vertical Column wise sum
+	 */
+	Map<Integer,Integer> colSum = new HashMap<>();
+	public void verticalSum(Node root, int column) {
+		if(root == null)
+			return;
+		verticalSum(root.left, column - 1);
+		colSum.put(column, colSum.get(colSum) + root.data);
+		verticalSum(root.right, column - 1);
+	}
+	
+	/**
+	 * Print All the ancestors of a node
+	 * @param root
+	 * @param node
+	 */
+	public void printAncestorsOfNode(Node root, Node node) {
+		
+	}
 	
 	public void levelWithMaximumSum(Node root) {
 		Queue<Node> queue = new LinkedList<>();
@@ -297,6 +346,8 @@ public class TreeOperations {
 			//TODO : complete code 
 		}
 	}
+	
+	
 	public static void main(String[] args) {
 		Node root  = new Node(1);
 		root.left = new Node(2);
@@ -312,8 +363,7 @@ public class TreeOperations {
 		
 		
 		TreeOperations obj = new TreeOperations();
-		
-		obj.levelOrderTraversal(root);
+		//obj.levelOrderTraversal(root);
 		
 	}
 }

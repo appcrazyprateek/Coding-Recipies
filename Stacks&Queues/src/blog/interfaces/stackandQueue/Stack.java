@@ -15,6 +15,10 @@ public class Stack implements IStack {
 		this.arr = new int[size];
 	}
 	
+   /*
+    * (non-Javadoc)
+    * @see blog.interfaces.stackandQueue.IStack#push(int)
+    */
 	@Override
 	public void push(int num) throws Exception {
 		if(isFull()) {
@@ -51,7 +55,7 @@ public class Stack implements IStack {
 		return arr[top];
 	}
 	
-	private boolean isFull() {
+	public boolean isFull() {
 		return top == arr.length -1; 
 	}
 

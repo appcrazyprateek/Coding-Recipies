@@ -111,6 +111,7 @@ public class MergeSort {
 			temp[k]=arr[j];
 			j++;
 			k++;
+			String s = null;
 		}
 
 		// copying content from auxillay array to the original array
@@ -121,5 +122,6 @@ public class MergeSort {
 			k++;
 			low++;
 		}
+		Arrays.sort(a);
 	}
 } 

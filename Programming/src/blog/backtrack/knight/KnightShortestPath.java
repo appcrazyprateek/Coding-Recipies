@@ -2,6 +2,7 @@ package blog.backtrack.knight;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * Find the least number of hops between source and destination
@@ -40,6 +41,8 @@ public class KnightShortestPath {
 	 * @return return number of hops if solution is availale else -1
 	 */
 	public static int path(int[][] board, int startRow, int startCol, int endRow, int endCol) {
+		Stack<Integer> s = new Stack<>();
+		
 		queue = new LinkedList<Coordinate>();
 		queue.add(new Coordinate(startRow, startCol));
 		queue.add(null);  //this acts a delimiter

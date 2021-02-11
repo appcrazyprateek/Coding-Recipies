@@ -1,5 +1,7 @@
 package blog.nextpallindrome;
 
+import java.util.Queue;
+
 /**
  * Find Next Pallindrome Number
  * @author Prateek
@@ -9,7 +11,6 @@ public class NextPallindrome {
 	public static void main(String[] argc){
 		int num= 0;
 		int output = 0;
-
 		num = 8648;
 		output = nextPanlindrome(num);
           System.out.println("input :"+num + "      "  + "output :"+output);

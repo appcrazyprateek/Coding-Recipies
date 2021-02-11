@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * Topological Sort Using DFS with few modifications
@@ -52,14 +53,9 @@ public class TOPOSort {
 	}
 
 	///======== TOPOLOGICAL SORT ========/////////
-	// to keep track of ordering
-	private int currentLabel;
-	int[] sortedArray;
+	Stack<Integer> sortedVertices = new Stack<Integer>();
 	public void topologicalSort()
 	{
-
-		currentLabel=vistedStatusList.size()-1;
-		sortedArray=new int[numVertices];
 
 		Set<Map.Entry<Integer, Boolean>> set=vistedStatusList.entrySet();
 		Iterator<Map.Entry<Integer, Boolean>> iterator=set.iterator();
@@ -71,15 +67,8 @@ public class TOPOSort {
 			if(!isVisited)
 				topologicalSortUtil(key); // Call DFS for a given node , if unvisited
 		}
-
-		// printing the topological sorted array
-		for(int i=0;i<sortedArray.length;i++)
-		{
-			if(sortedArray[i]!=0)
-				System.out.print(sortedArray[i]+"\t");
-		}
+		print();
 	}
-
 
 	/**
 	 * Procedure Similar to DFS, unwinds when deepest node is encountered
@@ -104,12 +93,16 @@ public class TOPOSort {
 				}
 			}	
 		}
-		/* for loop will end when the sink vertex is reached , that sink vertex is plucked and put in the array as per the currentLabel, 
-		 * which corresponds to its position in topological sort */
-		sortedArray[currentLabel]=vertex;
-		currentLabel--;
+		sortedVertices.push(vertex);
 	}
 
+	private void print() {
+		while(!sortedVertices.isEmpty()) {
+			System.out.println(sortedVertices.pop());
+		}
+		
+	}
+	
 	public static void main(String[] args) {
 		int numVertices = 7;
 		TOPOSort g=new TOPOSort(numVertices);

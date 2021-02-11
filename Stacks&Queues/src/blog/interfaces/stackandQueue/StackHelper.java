@@ -9,6 +9,8 @@ public class StackHelper {
 		s.push(3);
 		s.push(2);
 		s.push(1);
+		s.push(6);
+		s.push(7);
 		s.pop();
 		s.pop();
 	}

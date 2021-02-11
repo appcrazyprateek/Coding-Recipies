@@ -10,6 +10,8 @@ public interface IStack {
 	
 	boolean isEmpty();
 	
+	boolean isFull();
+	
 	void print();
 
 }

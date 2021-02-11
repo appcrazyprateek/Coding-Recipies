@@ -37,7 +37,7 @@ public class SortStack {
 			int val=stack.pop();
 			compareAndPush(item);
 			stack.push(val);
-		}
+		}	
 	}
 	
 	

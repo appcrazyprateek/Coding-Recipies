@@ -1,8 +1,10 @@
 package blog.sorting.quicksort;
 
+import java.util.Collections;
+
 public class QuickSort {
 	//private static int[] arr = { 3, 1, 4, 5, 2 };
-	private static int[] arr = { 10, 80, 30, 90, 40, 50, 70 };
+	private static int[] arr = {10, 80, 30, 90, 40, 50, 70 };
 
 	/**
 	 * 3 WayQuick Sort
@@ -13,7 +15,9 @@ public class QuickSort {
 	static void modified3wayQsort(int low, int high) {
 		if (high <= low)
 			return;
-
+		Collections.sort(null);
+		//1. get random number index 
+		//2. swap random index and low 
 		int pivot = partition3(arr, low, high);
 
 		modified3wayQsort(low, pivot - 1);
@@ -32,22 +36,6 @@ public class QuickSort {
 				i++;
 		}
 		return i;
-	}
-
-	//TODO small bug, correct it, test on { 10, 80, 30, 90, 40, 50, 70 }
-	public static int partition2(int arr[], int low, int high) {
-		int pivot = arr[low + ((high - low) / 2)];
-
-		while (low != high) {
-
-			if (arr[low] < pivot)
-				low++;
-			else {
-				swap(low, high);
-				high--;
-			}
-		}
-		return high;
 	}
 
 	private static int partition3(int[] arr, int low, int high) {
@@ -82,8 +70,8 @@ public class QuickSort {
 	}
 
 	public static void main(String[] args) {
-		modified3wayQsort(0, arr.length - 1);
-		// partition2(arr, 0, arr.length - 1);
+		//modified3wayQsort(0, arr.length - 1);
+		 partition3(arr, 0, arr.length - 1);
 		for (int i = 0; i < arr.length; i++)
 			System.out.println(arr[i]);
 	}

@@ -85,16 +85,18 @@ public class DFS {
 	}
 
 	public void dfsUtil(int vertex){
+		//Get neighbours 
 		List <Integer> list = adjList.get(vertex) ;
 
+		//mark visit status
 		vistedStatus.put(vertex, true) ;
+		
 		System.out.println(vertex + "\t");
-		int size = list.size();
-		for(int i = 0;i < size ; i++){
-			int v=list.get(i);
+		
+		for(Integer c : list){
 			
-			if(!vistedStatus.get(v))
-				dfsUtil(v);
+			if(!vistedStatus.get(c))
+				dfsUtil(c);
 		}
 	}
 	
@@ -108,6 +110,7 @@ public class DFS {
 		g.addEdge(1, 3);
 
 		g.dfs();
+		//g.dfsUtil(0);
 
 	}
 }

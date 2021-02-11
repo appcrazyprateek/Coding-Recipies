@@ -28,6 +28,7 @@ public class Test {
 	
 	private static char find(char[] input){
 		 
+		String s = "";
 		 char result = ' ';
 		 int counter = 0;
 		 int seek = 0;
@@ -51,11 +52,87 @@ public class Test {
 		 }
 		 return 0;
 		 }
+	
+	/*
+	static int[] findMissingAndDuplicate(int[] arr, int n) {
+
+	      int[] result = new int[2];
+	      for(int i=0;i<n;i++)
+	      {
+	         int val = Math.abs(arr[i]);
+	         if(arr[val - 1] < 0)
+	         {
+	            result[0] = val;
+	         }
+	         arr[val - 1] = -1 * arr[val -1];
+	      }
+
+	      for(int i=0;i<n;i++) {
+	         if(arr[i] > 0 && i!= result[0]-1)
+	         {
+	            result[1] = i+1;
+	         }
+	      }
+	      return result;
+	}
+	
 		 
 		 //Test client
 		 public static void main(String[] args) {
-		// char[] input = {'A', 'B', 'A', 'C', 'C', 'C', 'Ç'};
-			 char[] input = {'A', 'C', 'B', 'C', 'C', 'E', 'Ç'};
-		 System.out.println(find(input));
+			 	int[] arr = {1, 4, 6, 9, 3, 7, 5, 2, 5};
+			 	System.out.println(Arrays.toString(arr));
+			 	int[] result = findMissingAndDuplicate(arr, 9);
+			 	System.out.println("Duplicate Element : " + result[0] );
+			 	System.out.println("Missing Element : " + result[1] );
+			 	
+		 }*/
+
+	
+	
+		 //Test client
+		 public static void main(String[] args) {
+		// char[] input = {'A', 'B', 'A', 'C', 'C', 'C', 'ï¿½'};
+			 //char[] input = {'A', 'C', 'B', 'C', 'C', 'E', 'ï¿½'};
+		 //System.out.println(find(input));
+		 /*int i = 4;
+		 System.out.println("i<<1/Multiple   --> " + (i << 1));
+		 System.out.println("i>>1/Divide   --> " + (i >> 1));
+		 System.out.println("1 << i   --> " + (1 << i));*/
+		 
+			 int count = countSetBits(7);
+			 System.out.println("Number Set Bit : " + count);
+		 
+		 
 		 }
+		 
+		 
+		 static int countSetBits(int n) {
+			 int count = 0;
+			 while(n > 0)   
+			 {
+				 n = n & (n-1);
+				count++;
+			 }
+			 return count;
+		 }
+		 
+		 boolean checkPowerOf2(int n)
+		 {
+			 if(n == 0)
+				 return false;
+			 
+			 n = n & (n-1);
+			 
+			 if(n==0)
+				 return true;
+			 
+			 
+			 else 
+				 return false;
+			 
+		 }
+		 
+		 
+		 
+		 
 }

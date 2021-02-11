@@ -29,10 +29,8 @@ public class LargestRectableAreaInHistogram {
 			 */
 			else {
 				top = stack.pop();
-				if(stack.isEmpty())
-					area = heights[top] * i;
-				else
-					area = heights[top] * (i - 1 - stack.peek());
+				int lowBound = !stack.isEmpty() ? stack.peek() : -1; 
+				area = heights[top] * (i -1 - lowBound);
 				
 				System.out.println("area -- >" + area);
 				maxArea = Math.max(area, maxArea);

@@ -3,7 +3,6 @@
  */
 package blog.slidingwindow.minima;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -15,7 +14,7 @@ import java.util.LinkedList;
 public class SlidingWindowMaxima {
 
 	/**
-	 * Dequeue was most suited DS in this problem
+	 * Dequeue was most suited DS in this problem, we can use heap based solution.
 	 * following operations are performed
 	 * 1. from Back
 	 *       a. PollfromLast : if current element is larger than existing ones
@@ -29,49 +28,56 @@ public class SlidingWindowMaxima {
 	 * @param w : window size
 	 * @return: max value in contiguous window sizes
 	 */
-	public static ArrayList<Integer> findMixima(int[] arr, int w) {
-		Integer[] result = new Integer[arr.length];
+	public static void findMixima(int[] arr, int w) {
 		int size = arr.length;
 
 		// Dequeue will hold the indexes of the input arr
-		Deque<Integer> deq = new LinkedList<Integer>();
+		Deque<Integer> deq = new LinkedList<>();
 
-		// Initialisation step, max element is inserted at the front
+		// Initialisation step, max element is inserted at the front. 
+		//Remove elements from rear if the incoming element is greater than rear elements
+		//until rear element is greater than incoming element
 		for (int i = 0; i < w; i++) {
-			while (!deq.isEmpty() && arr[i] >= arr[deq.peekLast()]) {
+			
+			//Step 3
+			while (!deq.isEmpty() && arr[i] > arr[deq.peekLast()]) {
 				deq.pollLast();
 			}
+			//Step 4
 			deq.offerLast(i);
 		}
-
+		
 		for (int i = w; i < size; i++)
 		{
-			result[i - w] = arr[deq.peekFirst()]; // largest element is always
-													// in front
+			//Step 1
+			//Get the highest element from the front, (elements are in decending order)
+			System.out.print("   "+arr[deq.peekFirst()]);
 
-			// Poll from back until the elements in the queue are smaller than
-			// current element
-			while (!deq.isEmpty() && arr[deq.peekLast()] < arr[i])
-				deq.pollLast();
- 
-			// Poll elements from front if they are not in window frame
+			//Step 2
+			// remove elements from front if they are not in window frame
 			while (!deq.isEmpty() && deq.peekFirst() <= i - w)
 				deq.pollFirst();
-
+			
+			//Step 3
+			// Poll from back until the elements in the queue are smaller than
+			// current element
+			while (!deq.isEmpty() && arr[i] > arr[deq.peekLast()])
+				deq.pollLast();
+			 
+			//Step 4
 			deq.offerLast(i); //push the current index to the last
 
 		}
-		result[size - w] = arr[deq.peekFirst()];
-
-		return (ArrayList<Integer>) Arrays.asList(result);
+		//Maximum of Last window
+		System.out.print("   "+arr[deq.peekFirst()]);
 	}
 
 	public static void main(String[] args) {
-		int[] arr= {1};
-		int windowSize=1;
+		//int[] arr= {7, 3, 11, 8, 9, 10, 2, 12, 23};
+		int[] arr= {9, 6, 11, 8, 10, 5, 4, 13, 80, 15};
+		int windowSize=4;
 		System.out.println("Input: "+ Arrays.toString(arr));
-	//	System.out.println("Output:"+ Arrays.toString(findMixima(arr, windowSize)));
-		System.out.println(findMixima(arr, windowSize));
-		
+		System.out.print("Output : ");
+		findMixima(arr, windowSize);
 	}
 }
